@@ -17,7 +17,14 @@ hasCJKLanguage = true
     # 首頁資訊
     [params.homeInfoParams]
         Title = "Hi, I'm Ethan"
-        Content = "3 startups, 2 decades, 1 dream."
+        Content = """
+3 startups, 2 decades, 1 dream.
+
+- On the second weekend of 2026 May, I set up this blog on a whim.
+- Maintain my reading and reflection, and try to bring focus into my work.
+- Mathematics, quantum mechanics, 6G networking, artificial intelligence, and ubiquitous knowledge.
+"""
+
 
     # --- 二、Social 社交連結設定 ---
     [[params.socialIcons]]
