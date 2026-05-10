@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Posts on My New Hugo Project</title>
+    <link>http://localhost:1313/posts/</link>
+    <description>Recent content in Posts on My New Hugo Project</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 10 May 2026 12:37:40 +0800</lastBuildDate>
+    <atom:link href="http://localhost:1313/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>My First Post</title>
+      <link>http://localhost:1313/posts/day1_structure/</link>
+      <pubDate>Sun, 10 May 2026 12:37:40 +0800</pubDate>
+      <guid>http://localhost:1313/posts/day1_structure/</guid>
+      <description>&lt;h1 id=&#34;day-1tmytek-的硬體專案執行心法從共同語言開始&#34;&gt;Day 1｜TMYTEK 的硬體專案執行心法：從共同語言開始&lt;/h1&gt;
+&lt;blockquote&gt;
+&lt;p&gt;系列：《TMYTEK 的硬體專案執行心法：從 Kickoff 到量產的工程治理》
+適讀：PJM / EPM / MPM 團隊，以及與我們協作的 BD / SCM / R&amp;amp;D 同仁&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;我們是一家硬體為主、走完整 EVT/DVT/PVT 流程、以 ODM/EMS 代工量產的軟硬整合公司。這個產業有它自己的物理法則：一塊板子打樣兩週是日曆時間、一次認證測試是外部資源、一個新機種從 Concept 到量產是 9 到 18 個月。我們不能用純軟體公司「再加一個衝刺修一下」的思維來管理硬體專案。&lt;/p&gt;
+&lt;p&gt;要把這件事做好，第一步不是工具，是&lt;strong&gt;共同語言&lt;/strong&gt;。讓 PJM、R&amp;amp;D、BD、SCM 在同一張表上能看懂彼此在做什麼、資源怎麼分配、戰略投資是否合理。這就是這篇文章要建立的基礎。&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;一investment-category八大投入類別&#34;&gt;一、Investment Category：八大投入類別&lt;/h2&gt;
+&lt;p&gt;我們把 R&amp;amp;D 的所有工作分成 &lt;strong&gt;8 個投入類別&lt;/strong&gt;。每一個 Epic（後面會解釋這是什麼）都必須掛上一個類別。這 8 類是這樣設計的：&lt;/p&gt;
+&lt;table&gt;
+  &lt;thead&gt;
+      &lt;tr&gt;
+          &lt;th&gt;#&lt;/th&gt;
+          &lt;th&gt;類別&lt;/th&gt;
+          &lt;th&gt;說明&lt;/th&gt;
+      &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+      &lt;tr&gt;
+          &lt;td&gt;1&lt;/td&gt;
+          &lt;td&gt;新硬體產品 / 新機種&lt;/td&gt;
+          &lt;td&gt;新 SKU、新硬體架構，含其必要的韌體與配套 APP/雲端&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;2&lt;/td&gt;
+          &lt;td&gt;既有產品迭代&lt;/td&gt;
+          &lt;td&gt;已上市產品的功能更新、效能優化、體驗改善&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;3&lt;/td&gt;
+          &lt;td&gt;品質 / Bug / RMA&lt;/td&gt;
+          &lt;td&gt;軟硬韌的 bug、量產線品質事件、客訴根因、產線異常&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;4&lt;/td&gt;
+          &lt;td&gt;驗證 / 認證 / 合規&lt;/td&gt;
+          &lt;td&gt;EVT/DVT/PVT 各階段測試、各國法規認證、安規、EMC、可靠度測試&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;5&lt;/td&gt;
+          &lt;td&gt;製造 / NPI / 量產導入&lt;/td&gt;
+          &lt;td&gt;產線治具、產測程式、SOP 撰寫、與代工廠對接、試產支援&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;6&lt;/td&gt;
+          &lt;td&gt;平台 / 工具鏈 / 自動化&lt;/td&gt;
+          &lt;td&gt;共用韌體 SDK、雲端後端平台、自動化測試平台、CI/CD、開發工具&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;7&lt;/td&gt;
+          &lt;td&gt;技術預研 / 先期研究&lt;/td&gt;
+          &lt;td&gt;新技術評估、新晶片導入評估、新製程或新材料試作、Reference Design 研究&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;8&lt;/td&gt;
+          &lt;td&gt;營運支援 / KTLO&lt;/td&gt;
+          &lt;td&gt;OTA 維運、客戶技術支援升級、產線即時支援、Field Issue 處理&lt;/td&gt;
+      &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h3 id=&#34;為什麼是這-8-類不是-5-類也不是-15-類&#34;&gt;為什麼是這 8 類，不是 5 類也不是 15 類&lt;/h3&gt;
+&lt;p&gt;純軟體公司的分類體系（例如「新功能 / 修 bug / 技術債 / 維運」）不適用我們。&lt;strong&gt;我們的產業有「驗證」、「認證」、「製造導入」這幾個不可壓縮的大筆投入&lt;/strong&gt;——一塊板子要過 FCC、CE、BSMI 認證的工時，跟修一個 bug 的工時不是同一件事，也不該被合在「品質」桶子裡。&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>
