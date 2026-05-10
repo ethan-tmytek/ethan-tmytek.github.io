@@ -1,4 +1,10 @@
-# Day 2｜Kickoff 前的起手式：以 Project ARRAY-26 為例
++++
+date = '2026-05-10T12:37:40+08:00'
+draft = false
+title = 'Day 2｜Kickoff 前的起手式：以 Project ARRAY-26 為例'
+showToc = true
+TocOpen = true
++++
 
 > 系列：《TMYTEK 的硬體專案執行心法：從 Kickoff 到量產的工程治理》
 > 適讀：PJM / EPM / MPM 團隊，以及與我們協作的 BD / SCM / R&D 同仁
