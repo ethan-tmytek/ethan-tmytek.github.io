@@ -5,6 +5,7 @@ on:
     branches: ["main"]
   workflow_dispatch:
 
+# 這是解決 Node.js 20 警告的關鍵：強制讓所有 Action 使用 Node.js 24 執行環境
 env:
   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
@@ -13,21 +14,28 @@ permissions:
   pages: write
   id-token: write
 
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v4 # 這是目前存在的穩定版
+        with:
+          submodules: recursive
+          fetch-depth: 0
       - name: Setup Hugo
-        uses: peaceiris/actions-hugo@v3 # 確保這裡是 v3
+        uses: peaceiris/actions-hugo@v3 # 退回 v3，這是正確的
         with:
           hugo-version: 'latest'
           extended: true
       - name: Build with Hugo
         run: hugo --minify
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-pages-artifact@v3 # 這是目前存在的穩定版
         with:
           path: ./public
 
@@ -40,4 +48,4 @@ jobs:
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v4 # 這是目前存在的穩定版

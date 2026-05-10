@@ -4,7 +4,8 @@ date: 2026-05-10T14:00:00+08:00
 draft: false
 tags: ["PDM", "Project", "Jira"]
 categories: ["專案管理"]
-description: "這是系列文章的第三篇，主要是給公司內部團隊看的，關於我們 TMYTEK 作為軟硬體整合商，在專案管理上該如何執行。"
+description: "這是系列文章的第三篇，主要是給公司內部團隊看的，關於我們 TMYTEK 作為軟硬體整合商，在專案管理
+上該如何執行。"
 showToc: true
 TocOpen: true
 ---
