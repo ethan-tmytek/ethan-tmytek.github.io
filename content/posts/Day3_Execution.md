@@ -1,13 +1,13 @@
-+++
-title = 'Day 3｜Kickoff 後的執行治理：五大類事件與四層節奏'
-date = '20264-05-10T14:00:00+08:00'
-draft = false
-tags = ["PDM", "Project", "Jira"]
-categories = ["專案管理"]
-description = '系列文章的第三篇'
-showToc = true
-TocOpen = true
-+++
+---
+title: "Day 3｜Kickoff 後的執行治理：五大類事件與四層節奏"
+date: 2026-05-10T14:00:00+08:00
+draft: false
+tags: ["PDM", "Project", "Jira"]
+categories: ["專案管理"]
+description: "這是系列文章的第三篇，主要是給公司內部團隊看的，關於我們 TMYTEK 作為軟硬體整合商，在專案管理上該如何執行。"
+showToc: true
+TocOpen: true
+---
 
 > 系列：《TMYTEK 的硬體專案執行心法：從 Kickoff 到量產的工程治理》
 > 適讀：PJM / EPM / MPM 團隊，以及與我們協作的 BD / SCM / R&D 同仁
