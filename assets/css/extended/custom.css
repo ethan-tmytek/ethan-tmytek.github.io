@@ -1,0 +1,23 @@
+/* 自定義全站字體 */
+:root {
+    /* 這裡的順序很重要：先英文、後中文，最後是通用類別 */
+    --main-font: "Inter", "Work Sans", "Helvetica Neue", "PingFang TC", "Microsoft JhengHei", sans-serif;
+    --code-font: "Fira Code", "Cascadia Code", "Menlo", "Monaco", "Courier New", monospace;
+}
+
+body {
+    font-family: var(--main-font);
+    -webkit-font-smoothing: antialiased;
+    line-height: 1.8; /* 稍微增加行距，中文閱讀更舒服 */
+    letter-spacing: 0.02em; /* 增加一點字距 */
+}
+
+code {
+    font-family: var(--code-font);
+}
+
+/* 針對標題加強 */
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--main-font);
+    font-weight: 600;
+}

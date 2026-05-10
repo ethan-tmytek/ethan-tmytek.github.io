@@ -1,4 +1,24 @@
+# 基礎設定
 baseURL = "https://ethan-tmytek.github.io/"
-locale = 'en-us'
-title = 'My Hugo Project'
+title = "Ethan's Blog"            # 這裡可以改成你想要的標題
 theme = "PaperMod"
+languageCode = "zh-tw"
+hasCJKLanguage = true             # 開啟中日韓字數統計優化
+
+[params]
+    # 語系與主題風格
+    locale = "zh-tw"
+    defaultTheme = "auto"         # 自動切換深色/淺色模式
+    showCodeCopyButtons = true    # 顯示代碼複製按鈕
+    ShowReadingTime = true        # 顯示閱讀時間
+    ShowWordCount = true          # 顯示字數
+    
+    # 首頁個人資訊設定 (可選)
+    [params.homeInfoParams]
+        Title = "My Blog"
+        Content = "Let's see what we have here."
+
+    # 社群連結 (可選)
+    [[params.socialIcons]]
+        name = "github"
+        url = "https://github.com/ethan-tmytek"

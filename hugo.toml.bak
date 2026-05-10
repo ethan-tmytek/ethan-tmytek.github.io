@@ -1,0 +1,6 @@
+baseURL = "https://ethan-tmytek.github.io/"
+locale = 'en-us'
+title = 'My Hugo Project'
+theme = "PaperMod"
+languageCode = "zh-tw"
+hasCJKLanguage = true  # 告訴 Hugo 這是中日韓語系，會優化字數統計功能
