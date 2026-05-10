@@ -2,8 +2,9 @@
 date = '2026-05-10T12:37:40+08:00'
 draft = false
 title = 'Day 1｜TMYTEK 的硬體專案執行心法：從共同語言開始'
+showToc = true
+TocOpen = true
 +++
-# Day 1｜TMYTEK 的硬體專案執行心法：從共同語言開始
 
 > 系列：《TMYTEK 的硬體專案執行心法：從 Kickoff 到量產的工程治理》
 > 適讀：PJM / EPM / MPM 團隊，以及與我們協作的 BD / SCM / R&D 同仁
