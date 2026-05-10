@@ -1,4 +1,4 @@
 baseURL = "https://ethan-tmytek.github.io/"
 locale = 'en-us'
-title = 'My New Hugo Project'
+title = 'My Hugo Project'
 theme = "PaperMod"
