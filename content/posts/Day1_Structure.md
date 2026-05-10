@@ -1,6 +1,6 @@
 +++
 date = '2026-05-10T12:37:40+08:00'
-draft = true
+draft = false
 title = 'My First Post'
 +++
 # Day 1｜TMYTEK 的硬體專案執行心法：從共同語言開始
