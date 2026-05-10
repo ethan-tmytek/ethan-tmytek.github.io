@@ -1,24 +1,43 @@
-# 基礎設定
 baseURL = "https://ethan-tmytek.github.io/"
-title = "Ethan's Blog"            # 這裡可以改成你想要的標題
+title = "Ethan's Blog"
 theme = "PaperMod"
 languageCode = "zh-tw"
-hasCJKLanguage = true             # 開啟中日韓字數統計優化
+hasCJKLanguage = true
+
+# 讓 Search 功能運作的關鍵：首頁必須輸出 JSON 格式
+[outputs]
+    home = ["HTML", "RSS", "JSON"]
 
 [params]
-    # 語系與主題風格
+    env = "production"
     locale = "zh-tw"
-    defaultTheme = "auto"         # 自動切換深色/淺色模式
-    showCodeCopyButtons = true    # 顯示代碼複製按鈕
-    ShowReadingTime = true        # 顯示閱讀時間
-    ShowWordCount = true          # 顯示字數
+    description = "Ethan Lin 的創業與生活筆記"
+    author = "Ethan Lin"
     
-    # 首頁個人資訊設定 (可選)
+    # 首頁資訊
     [params.homeInfoParams]
-        Title = "My Blog"
-        Content = "Let's see what we have here."
+        Title = "Hi, I'm Ethan"
+        Content = "3 startups, 2 decades, 1 dream."
 
-    # 社群連結 (可選)
+    # --- 二、Social 社交連結設定 ---
     [[params.socialIcons]]
         name = "github"
         url = "https://github.com/ethan-tmytek"
+    [[params.socialIcons]]
+        name = "linkedin"
+        url = "https://www.linkedin.com/in/ethan-lin-7058133b/" # 記得改為你的 ID
+
+# --- 三、Menu 導覽列設定 ---
+# weight 越小排在越前面
+[[menu.main]]
+    name = "Archive"     # 文章歸檔
+    url = "/archives"
+    weight = 10
+[[menu.main]]
+    name = "Search"      # 搜尋頁面
+    url = "/search"
+    weight = 20
+[[menu.main]]
+    name = "Tags"        # 標籤
+    url = "/tags"
+    weight = 30
