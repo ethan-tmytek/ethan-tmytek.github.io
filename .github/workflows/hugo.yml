@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Sample workflow for building and deploying a Hugo site to GitHub Pages
 name: Deploy Hugo site to Pages
 
@@ -10,11 +11,20 @@ on:
   workflow_dispatch:
 
 # Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
+=======
+name: Deploy Hugo site to Pages
+
+on:
+  push:
+    branches: ["main"]
+
+>>>>>>> 229afbe (Add GitHub Actions workflow)
 permissions:
   contents: read
   pages: write
   id-token: write
 
+<<<<<<< HEAD
 # Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
 # However, do NOT cancel in-progress runs as we want to allow these production deployments to complete.
 concurrency:
@@ -56,12 +66,32 @@ jobs:
           hugo \
             --minify \
             --baseURL "${{ steps.pages.outputs.base_url }}/"
+=======
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive # 這行很重要，用來抓主題
+      - name: Setup Hugo
+        uses: peaceiris/actions-hugo@v3
+        with:
+          hugo-version: 'latest'
+          extended: true
+      - name: Build with Hugo
+        run: hugo --minify
+>>>>>>> 229afbe (Add GitHub Actions workflow)
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
           path: ./public
 
+<<<<<<< HEAD
   # Deployment job
+=======
+>>>>>>> 229afbe (Add GitHub Actions workflow)
   deploy:
     environment:
       name: github-pages
@@ -71,4 +101,8 @@ jobs:
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
+<<<<<<< HEAD
         uses: actions/deploy-pages@v5
+=======
+        uses: actions/deploy-pages@v4
+>>>>>>> 229afbe (Add GitHub Actions workflow)
