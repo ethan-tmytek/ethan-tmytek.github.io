@@ -1,0 +1,1093 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto" data-theme="auto">
+
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>Day 2｜Kickoff 前的起手式：以 Project ARRAY-26 為例 | Ethan&#39;s Blog</title>
+<meta name="keywords" content="">
+<meta name="description" content="
+系列：《TMYTEK 的硬體專案執行心法：從 Kickoff 到量產的工程治理》
+適讀：PJM / EPM / MPM 團隊，以及與我們協作的 BD / SCM / R&amp;D 同仁
+
+Day 1 我們建立了共同語言。今天我們用一個具體案例，示範資深 PJM 在 Kickoff 之前應該把 Jira 結構建立到什麼程度。這篇是 PJM 的「起手式」標準作業。">
+<meta name="author" content="Ethan Lin">
+<link rel="canonical" href="http://localhost:1313/posts/day2_kickoff/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.26d4b14e2db52c2d8dd96a14e433e0911502c825f55711c569be05732d8147fb.css" integrity="sha256-JtSxTi21LC2N2WoU5DPgkRUCyCX1VxHFab4Fcy2BR/s=" rel="preload stylesheet" as="style">
+<link rel="icon" href="http://localhost:1313/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="http://localhost:1313/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="http://localhost:1313/favicon-32x32.png">
+<link rel="apple-touch-icon" href="http://localhost:1313/apple-touch-icon.png">
+<link rel="mask-icon" href="http://localhost:1313/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="en" href="http://localhost:1313/posts/day2_kickoff/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --code-block-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+                color-scheme: dark;
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .toc {
+                background: var(--entry);
+            }
+        }
+
+    </style>
+</noscript>
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.querySelector("html").dataset.theme = 'dark';
+    } else if (localStorage.getItem("pref-theme") === "light") {
+       document.querySelector("html").dataset.theme = 'light';
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.querySelector("html").dataset.theme = 'dark';
+    } else {
+        document.querySelector("html").dataset.theme = 'light';
+    }
+
+</script><meta property="og:url" content="http://localhost:1313/posts/day2_kickoff/">
+  <meta property="og:site_name" content="Ethan&#39;s Blog">
+  <meta property="og:title" content="Day 2｜Kickoff 前的起手式：以 Project ARRAY-26 為例">
+  <meta property="og:description" content="系列：《TMYTEK 的硬體專案執行心法：從 Kickoff 到量產的工程治理》 適讀：PJM / EPM / MPM 團隊，以及與我們協作的 BD / SCM / R&amp;D 同仁
+Day 1 我們建立了共同語言。今天我們用一個具體案例，示範資深 PJM 在 Kickoff 之前應該把 Jira 結構建立到什麼程度。這篇是 PJM 的「起手式」標準作業。">
+  <meta property="og:locale" content="zh_tw">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2026-05-10T12:37:40+08:00">
+    <meta property="article:modified_time" content="2026-05-10T12:37:40+08:00">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Day 2｜Kickoff 前的起手式：以 Project ARRAY-26 為例">
+  <meta name="twitter:description" content="系列：《TMYTEK 的硬體專案執行心法：從 Kickoff 到量產的工程治理》 適讀：PJM / EPM / MPM 團隊，以及與我們協作的 BD / SCM / R&amp;D 同仁
+Day 1 我們建立了共同語言。今天我們用一個具體案例，示範資深 PJM 在 Kickoff 之前應該把 Jira 結構建立到什麼程度。這篇是 PJM 的「起手式」標準作業。">
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Posts",
+      "item": "http://localhost:1313/posts/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "Day 2｜Kickoff 前的起手式：以 Project ARRAY-26 為例",
+      "item": "http://localhost:1313/posts/day2_kickoff/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Day 2｜Kickoff 前的起手式：以 Project ARRAY-26 為例",
+  "name": "Day 2｜Kickoff 前的起手式：以 Project ARRAY-26 為例",
+  "description": " 系列：《TMYTEK 的硬體專案執行心法：從 Kickoff 到量產的工程治理》 適讀：PJM / EPM / MPM 團隊，以及與我們協作的 BD / SCM / R\u0026amp;D 同仁\nDay 1 我們建立了共同語言。今天我們用一個具體案例，示範資深 PJM 在 Kickoff 之前應該把 Jira 結構建立到什麼程度。這篇是 PJM 的「起手式」標準作業。\n",
+  "keywords": [
+    
+  ],
+  "articleBody": " 系列：《TMYTEK 的硬體專案執行心法：從 Kickoff 到量產的工程治理》 適讀：PJM / EPM / MPM 團隊，以及與我們協作的 BD / SCM / R\u0026D 同仁\nDay 1 我們建立了共同語言。今天我們用一個具體案例，示範資深 PJM 在 Kickoff 之前應該把 Jira 結構建立到什麼程度。這篇是 PJM 的「起手式」標準作業。\n案例設定：Project ARRAY-26 客戶要求： 2026 Q3 交付 5 套客製化陣列天線 Antenna Card，並通過客戶規範的 POD（Prove of Design）測試。\n這個專案橫跨 7 個工程職能：\n天線（ANT / Tony） 射頻（RF / Vic） 電子工程（EE / Ken） 機構與熱流（ME / Andy） 韌體（FW / Silas） GUI 軟體（GUI / Ivy） FPGA（FPGA / Keith） 這個規模的專案，PJM 在 Kickoff 前該完成什麼？我們一步一步走。\n一、三個關鍵設計判斷 進入細節前，先講三個會貫穿整個結構的設計判斷：\n判斷一：這個專案是 Initiative，不是 Epic。\n雖然只有 5 套 Antenna Card 看起來像「一個產品」，但它跨越完整的 NPI 流程、橫跨 7 個職能、時程跨多個季度——符合 Initiative 的判準。在我們跟客戶或董事會的單頁 roadmap 上，這就是一條獨立的線。\n判斷二：Epic 的切分原則是「職能 × NPI 階段」的矩陣。\n這是硬體專案最自然的切法。同一個 NPI 階段（例如 EVT），不同職能要做的事完全不同（ANT 在量測天線、EE 在驗證電源、FPGA 在驗證時序）；同一個職能（例如 ANT），不同階段的工作也完全不同（Concept 在做拓撲、PVT 在做量產一致性）。把這兩個維度交叉，就得到 Epic 結構。\n判斷三：Review Meeting 不是「行政事項」，是 Epic 級別的工作項。\n很多 PJM 把 DR (Design Review) 當作會議室預訂，這是錯的。Review 的準備工作（document package、test report、risk log）是真實的工程工時，必須當 Epic 處理，否則它會在最後一週吃掉所有人的時間。\n二、Initiative 設定 欄位 值 Issue Type Initiative Status Concept Owner PJM（指派） Customer (客戶名稱) 目標完成季度 2026 Q3 預估人月 約 42 人月 策略類別 客製化新硬體產品 主要里程碑 DR0 (2026-01-15) · DR1 (2026-03-13) · DR2 (2026-05-22) · DR3 (2026-07-17) · POD (2026-08-21) · 交付 (2026-09-25) 預估人月：7 個職能 × 平均每人 6 個月參與 × 平均 0.6 投入比例 ≈ 25 人月直接投入，加上 PJM、QA、生產協助、Review 籌備等間接約 17 人月，合計 42 人月。\n三、NPI 階段時程主軸 我們用 9 個月的標準節奏：\n階段 起訖 週數 主要產出 Phase Gate Concept \u0026 Planning 2026-01-05 ~ 01-15 2 系統架構、技術可行性、BOM 雛形 DR0 Design 2026-01-16 ~ 03-13 8 Schematic、Layout、機構、FW/GUI/FPGA 架構 DR1 EVT 2026-03-16 ~ 05-22 10 EVT 樣品、各職能驗證報告、Risk Log DR2 DVT 2026-05-25 ~ 07-17 8 DVT 樣品、整合測試、可靠度測試 DR3 PVT 2026-07-20 ~ 08-21 5 5 套量產樣品、產線驗證、客戶 POD POD Pass Delivery 2026-08-24 ~ 09-25 5 5 套交付、文件交付、初期保固 Initiative Close 重要紀律： DR0 放在 Concept 結束後、Design 啟動前——這代表 Design 階段只能在 DR0 通過後才啟動。如果 Concept 階段發現某個技術風險過大（例如客戶要求的天線增益實作上極困難），DR0 就是停損點。這個紀律會省掉 80% 的後期返工。\n四、Epic 矩陣：42 個 Epic 的全貌 把 7 個職能 × 5 個階段交叉，加上 5 個 Phase Gate Epic + 2 個橫向整合 Epic，總共 42 個 Epic。下表呈現職能 × 階段的矩陣：\n職能 Concept (W1–2) Design (W3–10) EVT (W11–20) DVT (W21–28) PVT (W29–33) ANT Tony 陣列拓撲 / 增益分析 天線元件設計 / EM 模擬 EVT 天線量測 / S 參數 DVT 陣列校準 PVT 量產一致性 RF Vic RF 鏈路預算 / 元件選型 RF 電路設計 / 模擬 EVT RF 性能驗證 DVT RF 校準與穩定性 PVT RF 量產測試程式 EE Ken 系統電源與訊號架構 Schematic / PCB Layout EVT 板級驗證 DVT 整合與 SI/PI PVT 板級量產驗證 ME Andy 機構架構 / 熱流預估 機構詳細設計 / 熱模擬 EVT 機構與熱驗證 DVT 環境與可靠度 PVT 量產治具 FW Silas 韌體架構與介面定義 韌體核心開發 EVT 韌體驗證與 bring-up DVT 韌體穩定化 PVT 韌體 release GUI Ivy GUI 需求與架構 GUI 開發 / API 串接 EVT GUI 整合測試 DVT GUI 穩定化 PVT GUI 交付版 FPGA Keith FPGA 架構與 IP 評估 FPGA RTL 開發 / 模擬 EVT FPGA bring-up DVT FPGA 時序與穩定性 PVT FPGA bitstream release 外加 5 個跨職能 Phase Gate Epic：\nDR0 · Concept Review · 2026-01-15 DR1 · Design Review · 2026-03-13 DR2 · EVT Exit Review · 2026-05-22 DR3 · DVT Exit Review · 2026-07-17 POD · 客戶 Prove of Design · 2026-08-21 外加 2 個橫向整合 Epic：\n系統整合測試（跨 EVT / DVT，PJM 主導，所有職能協作） 文件交付與客戶簽收（PVT 後段，PJM + 文管） 五、Investment Category 的分配 注意一個關鍵設計：同一個 Initiative 底下的 Epic 會分屬不同 Investment Category。具體分配：\n階段 Investment Category Epic 數量 Concept + Design (W1–10) 1. 新硬體產品 14 EVT + DVT (W11–28) 4. 驗證 / 認證 / 合規 14 PVT (W29–33) 5. 製造 / NPI 7 Phase Gate (DR0–DR3、POD) 1. 新硬體產品 5 系統整合 + 文件交付 1 + 5（各一） 2 當 VP 看儀表板時，這個專案的工時會自然分布在三個類別——這正反映了硬體專案的真實樣貌：「真正在做新東西」的時間佔約 40%，「驗證」佔 40%，「量產導入」佔 20%。如果某個硬體專案 90% 都歸在類別 1，那一定是分類錯誤。\n六、Story 與 Task 範例：以 EE-EVT 為例 完整 42 個 Epic 全展開到 Story 會超過 300 個 Story、上千個 Task。我們選一個代表性 Epic 完整展開，其他套用相同模式。\nEpic：EE-EVT · EVT 板級驗證（Ken 主責） 欄位 值 Investment Category 4. 驗證 / 認證 / 合規 主責職能 EE 貢獻職能 FW, FPGA, ANT, RF 當前階段 EVT 規模估算 硬體日曆 6 週 + 工程人日 22 起訖 2026-03-30 ~ 2026-05-08 Definition of Done EVT 板通過所有電源 / 訊號完整性 / 介面驗證、輸出 EVT Test Report、Risk Log 更新、進入 DR2 候選 Story 列表（11 個）：\nStory Key 名稱 SP 職能 狀態類型 天數 ARR-301 EVT 板開箱檢查與目視 / X-ray 2 EE Active 1 ARR-302 Power-on 測試 3 EE Active 2 ARR-303 各電源 rail 量測與紋波分析 5 EE Active 3 ARR-304 系統 clock 訊號完整性量測 3 EE Active 2 ARR-305 High-speed 介面眼圖量測 5 EE Active 3 ARR-306 等待 FW bring-up 完成 0 EE External Wait 5 ARR-307 與 FW 協作驗證控制介面 3 EE+FW Active 2 ARR-308 與 FPGA 協作驗證 SerDes 連通 5 EE+FPGA Active 3 ARR-309 熱量測（搭配 ME） 3 EE+ME Active 2 ARR-310 撰寫 EVT 板級 Test Report 3 EE Active 2 ARR-311 更新 Risk Log 給 DR2 2 EE Active 1 注意 ARR-306 這張 External Wait 狀態的 Story——這是硬體專案的關鍵紀律。等待韌體 bring-up 完成是真實發生的時間，必須建票而非隱藏。否則 DR2 倒數時會發現「為什麼 EE 的工作好像都被推遲」，但其實是依賴鏈問題。把它顯性化，PJM 才能在週會上看到「EE 卡住了不是因為慢，是因為 FW」，並去推 FW。\n七、Phase Gate Epic：以 DR2 為例 DR2（EVT Exit Review）是這個專案最關鍵的 Phase Gate，決定能不能進 DVT。\nStory 列表（10 個，由 PJM 拆分給各職能）：\nStory Key 名稱 職能 SP 天數 ARR-401 ANT 提交 EVT 天線量測報告 ANT 3 2 ARR-402 RF 提交 EVT RF 性能驗證報告 RF 3 2 ARR-403 EE 提交 EVT 板級驗證報告 EE 3 2 ARR-404 ME 提交 EVT 機構與熱驗證報告 ME 3 2 ARR-405 FW 提交 EVT 韌體驗證報告 FW 3 2 ARR-406 GUI 提交 EVT GUI 整合測試報告 GUI 2 1 ARR-407 FPGA 提交 EVT FPGA bring-up 報告 FPGA 3 2 ARR-408 PJM 整合 EVT 跨職能 Risk Log PJM 3 2 ARR-409 PJM 撰寫 DR2 簡報 PJM 5 3 ARR-410 DR2 會議召開 + Exit Criteria 簽核 All 2 1 DR2 的 Exit Criteria（PJM 必須在 Kickoff 前就明確定義） 天線陣列實測增益達到客戶規範 ≥ 95% RF 鏈路 EVM 在規範範圍內 所有電源 rail 紋波 \u003c 規範閾值 高速介面眼圖通過 mask 規範 機構通過初步熱穩態測試（穩態溫度 \u003c 規範 -5°C 安全餘裕） 韌體核心功能 100% 通過 FPGA bring-up 完成且時序通過 STA Risk Log 中 P0/P1 風險全數有 mitigation plan PJM 紀律：Exit Criteria 必須在 Kickoff 前寫死、不可在會議上即興放寬。 如果某項沒過，要嘛延 DR2、要嘛開「Conditional Pass」並建立 follow-up Epic 進入 DVT 階段監控——但 Conditional Pass 一個專案內最多 2 次，第 3 次就要升級到 VP 介入。\n八、整合 Epic：最容易被遺漏的關鍵 「系統整合測試」這個 Epic 存在的理由：單一職能的 Epic 永遠只測試自己負責的部分。ANT 量測天線、RF 驗證鏈路、EE 驗證電源——但「ANT + RF + EE + FW + FPGA 從頭到尾跑完一次客戶 use case」這件事，沒有任何單一職能會主動做。\n把它變成獨立 Epic，由 PJM + QA 主責。Story 範例：\nStory 名稱 負責 端到端 use case 1：客戶情境 A 全鏈路測試 PJM + QA + All 端到端 use case 2：客戶情境 B 全鏈路測試 PJM + QA + All 跨職能介面壓力測試 PJM + EE + FW + FPGA 客戶 POD 測試 dry run（POD 前 2 週） PJM + QA + All 最後那個 Story 是 PJM 的關鍵風險控管動作——在客戶來看 POD 之前，自己先把 POD 跑一遍。任何 PJM 不做這個 dry run 就讓客戶來測的，幾乎都會在 POD 當天出包。\n九、PJM 與 SCM 的互動：採購物料的關鍵環節 這一節特別寫給 SCM 團隊與 PJM 團隊閱讀。我們的合作介面在這裡。\n硬體專案的成功有一半在工程，另一半在物料。PJM 把 Epic 規劃好了，但如果零件三週後才到，所有的 Epic 計畫都是空的。 這就是 PJM 與 SCM 必須緊密協作的原因。\n採購觸發時機 在我們的 NPI 流程中，主要的採購觸發點有 3 個：\n觸發點 時機 採購規模 用途 POC 物料 Concept 階段啟動後 少量（1–2 套） 技術可行性驗證、實驗用 EVT 物料 DR0 通過、Design 階段中段 小量（3–5 套） EVT 樣品製作 DVT 物料 DR1 通過、Design 完成後 中量（5–10 套） DVT 樣品製作 + 認證測試件 PVT 階段的量產物料因為跟產線排程綁在一起，由 SCM 主導、PJM 配合，不在這份 PJM 起手式的範圍。\n標準採購流程 每一個觸發點，PJM 與 SCM 之間走相同的標準流程：\nStep 1：PJM 產出 Material Request List (MRL) ↓ Step 2：MRL 提交給 SCM 生/物管團隊 ↓ Step 3：SCM 回報每個料件的交期承諾 (ETA) ↓ Step 4：PJM 對照 Epic 時程，確認交期是否支援 ↓ Step 5：若有衝突 → 觸發 Design 端 alternative 評估 若無衝突 → SCM 正式下單 ↓ Step 6：SCM 提供下單後追蹤窗口（料況週報） Material Request List (MRL) 必填欄位 PJM 提交給 SCM 的 MRL 必須包含以下欄位。欄位不齊全的 MRL，SCM 應該打回，不要勉強處理——這是雙方共同的紀律：\n欄位 說明 範例 Project Code 對應 Initiative 代號 ARRAY-26 MRL Phase POC / EVT / DVT EVT Required Date 物料需到齊的最晚日期 2026-03-12 Linked Epic 哪個 Epic 會用到這批料 EE-EVT 板級驗證 Part Number 廠商料號或內部料號 (依料件) Description 料件描述 LDO 3.3V, 2A, SOT-223 Quantity 需求數量（含 spare） 30 pcs（5 套 × 6 顆 + 安全庫存） Spec Reference 規格書 / Datasheet 連結 (Confluence link) Alternative Acceptable? 可否接受替代料 Yes / No / 需 Design 評估 PJM Contact 主責 PJM 與職能 Lead (簽核窗口) SCM 交期承諾 (ETA Confirmation) 應回報內容 SCM 收到 MRL 後，必須在 3 個工作天內回報每一個料件的：\n欄位 說明 Source 供應商 / 代理商 / 現貨商 Lead Time 標準交期 ETA 預計到貨日（含船期 / 通關時間） Confidence 高 / 中 / 低（信心度） Risk Note 潛在風險（缺料、價格大幅波動、停產風險等） Cost Note 單價與整批金額 信心度低的料件必須特別標記，PJM 就會知道「這個料雖然 ETA 是 3 月 5 日，但 SCM 沒把握」，從而觸發備援評估。\n衝突的處理：當交期撐不到 Required Date 當 SCM 回報的 ETA 晚於 PJM 的 Required Date，這是雙方共同的問題，不是 SCM 的「壞消息」。處理流程：\n第一步是評估彈性。PJM 先檢視 Required Date 是不是可以晚一週——很多時候硬體 Epic 排程有 buffer，挪一週不影響 DR Gate。\n第二步是評估替代料。如果交期硬卡死，PJM + SCM + EE Lead 三方開短會（不超過 30 分鐘），決定：\n用替代料（PJM 的 EE Lead 評估技術風險） 加價找現貨（SCM 評估成本影響、PJM 評估能否吸收） 改變 Epic 順序（PJM 重排，先做不需要該料件的 Epic） 動 Initiative 時程（升級到 VP 決策） 第三步是書面化決策。任何衝突的解決必須在 Jira 對應 Epic 留下 comment，記錄「2026-02-XX 因 LDO 3.3V 交期延遲 4 週，改用 替代料 PN-12345，EE Lead 已驗證電氣特性可接受」這類紀錄。這是未來客戶查問或 RMA 追溯時的關鍵證據鏈。\nMaterial Risk 進入 Risk Log 所有信心度為「中」或「低」的料件，PJM 應在 Risk Log 建立對應的 Risk 項目。這讓物料風險變成可監控的物件，而不是 SCM 一個人扛。Risk Log 範例：\nRisk-005: ARRAY-26 的 LDO 3.3V (PN-XXX) 交期信心度低\nProbability: Medium Impact: High（影響 EE-EVT 進度，連帶 DR2） Mitigation: SCM 已在 1 月底開始追蹤兩家備援代理商 Contingency: 改用替代料 PN-12345（EE Lead 已預先評估通過） Owner: SCM 窗口 + PJM Trigger: ETA 確認延後超過 1 週 → 啟用備援 PJM ↔ SCM 的固定節奏 除了專案啟動時的 MRL 提交，PJM 與 SCM 在執行中保持兩個固定節奏：\n每週料況週報（SCM 推送）： 每週五，SCM 給 PJM 一份所有在途料件的狀態更新（已到 / 在途 / 延遲 / 風險）。PJM 把延遲訊號吸收進 Risk Log。\n月度 Material Sync（雙方共同）： 每月一次 30 分鐘會議，PJM、SCM 生管、SCM 物管三方檢視未來 60 天的物料需求 vs. 供應預測，提早識別未來的衝突點。\n這個節奏是雙向的。 PJM 不只是「下單者」，要主動告訴 SCM 未來規劃；SCM 不只是「執行者」，要主動回報市場訊號（料況變化、價格波動、停產警告）。Kickoff 前 PJM 與 SCM 要對齊這個節奏，否則執行階段會變成單向施壓。\n十、Kickoff 前的最後檢查清單 PJM 在 Kickoff 前應該對照這份清單確認：\nInitiative 已建立並填寫所有欄位 42 個 Epic 已建立並標好 Investment Category 與起訖日期 5 個 Phase Gate Epic 的 Exit Criteria 已寫定 至少 3 個範例 Epic 已展開到 Story 層級作為團隊參考 Jira Project 權限與自動化規則已設定 所有職能 Lead（Tony / Vic / Ken / Andy / Silas / Ivy / Keith）已 review 過自己職能的 Epic 範圍並無異議 客戶 POD 規範已附在 Initiative 描述中或連結到 Confluence 整合測試 Epic 與 dry run 計畫已被各 Lead 知道 POC 階段 MRL 已提交 SCM 並取得 ETA 確認 EVT / DVT 階段 MRL 的草稿已建立（即使尚未提交，先讓 SCM 預知） Material Risk 已進入 Risk Log PJM ↔ SCM 月度 Material Sync 排入雙方行事曆 Initial Risk Log 已建立（至少 5–10 項初始 Risk） 倒數第 5 點最容易被跳過——Kickoff 變成 PJM 單向宣告。這是大忌。Kickoff 前 1 週必須跟每個 Lead 1-on-1 過一次他們職能的 Epic 列表，他們點頭你才能寫進 Jira。這個動作做扎實，後面 9 個月可以省下無數的「我以為不是我負責」的爭執。\n收斂 到這裡，Project ARRAY-26 在 Kickoff 前的 Jira 結構完整建立。明天的 Day 3 將進入 Kickoff 之後——起手式做扎實只是 30 分，執行治理才是另外 70 分。我們會講五大類執行事件（Issue / Bug / Risk / CR / Dependency Slip）的處理流程，以及四層治理節奏。\n",
+  "wordCount" : "5246",
+  "inLanguage": "en",
+  "datePublished": "2026-05-10T12:37:40+08:00",
+  "dateModified": "2026-05-10T12:37:40+08:00",
+  "author":{
+    "@type": "Person",
+    "name": "Ethan Lin"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "http://localhost:1313/posts/day2_kickoff/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Ethan's Blog",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "http://localhost:1313/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+<body id="top">
+    <header class="header">
+    <nav class="header-nav">
+        <div class="logo">
+            <a href="http://localhost:1313/" accesskey="h" title="Ethan&#39;s Blog (Alt + H)">Ethan&#39;s Blog</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" class="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="Toggle theme">
+                    <svg class="moon" xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg class="sun" xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu" class="menu">
+            <li>
+                <a href="http://localhost:1313/archives" title="Archive">
+                    <span>Archive</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://localhost:1313/search" title="Search (Alt &#43; /)" accesskey=/>
+                    <span>Search</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://localhost:1313/tags" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    
+    <h1 class="post-title entry-hint-parent">
+      Day 2｜Kickoff 前的起手式：以 Project ARRAY-26 為例
+    </h1>
+    <div class="post-meta">
+
+<span title='2026-05-10 12:37:40 +0800 CST'>May 10, 2026</span>&nbsp;·&nbsp;<span>Ethan Lin</span>
+
+</div>
+  </header> <details class="toc"  open>
+    <summary accesskey="c" title="(Alt + C)">
+        <span class="title">目錄</span>
+    </summary>
+
+    <div class="inner"><ul>
+            <li>
+                <a href="#%e6%a1%88%e4%be%8b%e8%a8%ad%e5%ae%9aproject-array-26" aria-label="案例設定：Project ARRAY-26">案例設定：Project ARRAY-26</a></li>
+            <li>
+                <a href="#%e4%b8%80%e4%b8%89%e5%80%8b%e9%97%9c%e9%8d%b5%e8%a8%ad%e8%a8%88%e5%88%a4%e6%96%b7" aria-label="一、三個關鍵設計判斷">一、三個關鍵設計判斷</a></li>
+            <li>
+                <a href="#%e4%ba%8cinitiative-%e8%a8%ad%e5%ae%9a" aria-label="二、Initiative 設定">二、Initiative 設定</a></li>
+            <li>
+                <a href="#%e4%b8%89npi-%e9%9a%8e%e6%ae%b5%e6%99%82%e7%a8%8b%e4%b8%bb%e8%bb%b8" aria-label="三、NPI 階段時程主軸">三、NPI 階段時程主軸</a></li>
+            <li>
+                <a href="#%e5%9b%9bepic-%e7%9f%a9%e9%99%a342-%e5%80%8b-epic-%e7%9a%84%e5%85%a8%e8%b2%8c" aria-label="四、Epic 矩陣：42 個 Epic 的全貌">四、Epic 矩陣：42 個 Epic 的全貌</a></li>
+            <li>
+                <a href="#%e4%ba%94investment-category-%e7%9a%84%e5%88%86%e9%85%8d" aria-label="五、Investment Category 的分配">五、Investment Category 的分配</a></li>
+            <li>
+                <a href="#%e5%85%adstory-%e8%88%87-task-%e7%af%84%e4%be%8b%e4%bb%a5-ee-evt-%e7%82%ba%e4%be%8b" aria-label="六、Story 與 Task 範例：以 EE-EVT 為例">六、Story 與 Task 範例：以 EE-EVT 為例</a><ul>
+                    
+            <li>
+                <a href="#epicee-evt--evt-%e6%9d%bf%e7%b4%9a%e9%a9%97%e8%ad%89ken-%e4%b8%bb%e8%b2%ac" aria-label="Epic：EE-EVT · EVT 板級驗證（Ken 主責）">Epic：EE-EVT · EVT 板級驗證（Ken 主責）</a></li></ul>
+            </li>
+            <li>
+                <a href="#%e4%b8%83phase-gate-epic%e4%bb%a5-dr2-%e7%82%ba%e4%be%8b" aria-label="七、Phase Gate Epic：以 DR2 為例">七、Phase Gate Epic：以 DR2 為例</a><ul>
+                    
+            <li>
+                <a href="#dr2-%e7%9a%84-exit-criteriapjm-%e5%bf%85%e9%a0%88%e5%9c%a8-kickoff-%e5%89%8d%e5%b0%b1%e6%98%8e%e7%a2%ba%e5%ae%9a%e7%be%a9" aria-label="DR2 的 Exit Criteria（PJM 必須在 Kickoff 前就明確定義）">DR2 的 Exit Criteria（PJM 必須在 Kickoff 前就明確定義）</a></li></ul>
+            </li>
+            <li>
+                <a href="#%e5%85%ab%e6%95%b4%e5%90%88-epic%e6%9c%80%e5%ae%b9%e6%98%93%e8%a2%ab%e9%81%ba%e6%bc%8f%e7%9a%84%e9%97%9c%e9%8d%b5" aria-label="八、整合 Epic：最容易被遺漏的關鍵">八、整合 Epic：最容易被遺漏的關鍵</a></li>
+            <li>
+                <a href="#%e4%b9%9dpjm-%e8%88%87-scm-%e7%9a%84%e4%ba%92%e5%8b%95%e6%8e%a1%e8%b3%bc%e7%89%a9%e6%96%99%e7%9a%84%e9%97%9c%e9%8d%b5%e7%92%b0%e7%af%80" aria-label="九、PJM 與 SCM 的互動：採購物料的關鍵環節">九、PJM 與 SCM 的互動：採購物料的關鍵環節</a><ul>
+                    
+            <li>
+                <a href="#%e6%8e%a1%e8%b3%bc%e8%a7%b8%e7%99%bc%e6%99%82%e6%a9%9f" aria-label="採購觸發時機">採購觸發時機</a></li>
+            <li>
+                <a href="#%e6%a8%99%e6%ba%96%e6%8e%a1%e8%b3%bc%e6%b5%81%e7%a8%8b" aria-label="標準採購流程">標準採購流程</a></li>
+            <li>
+                <a href="#material-request-list-mrl-%e5%bf%85%e5%a1%ab%e6%ac%84%e4%bd%8d" aria-label="Material Request List (MRL) 必填欄位">Material Request List (MRL) 必填欄位</a></li>
+            <li>
+                <a href="#scm-%e4%ba%a4%e6%9c%9f%e6%89%bf%e8%ab%be-eta-confirmation-%e6%87%89%e5%9b%9e%e5%a0%b1%e5%85%a7%e5%ae%b9" aria-label="SCM 交期承諾 (ETA Confirmation) 應回報內容">SCM 交期承諾 (ETA Confirmation) 應回報內容</a></li>
+            <li>
+                <a href="#%e8%a1%9d%e7%aa%81%e7%9a%84%e8%99%95%e7%90%86%e7%95%b6%e4%ba%a4%e6%9c%9f%e6%92%90%e4%b8%8d%e5%88%b0-required-date" aria-label="衝突的處理：當交期撐不到 Required Date">衝突的處理：當交期撐不到 Required Date</a></li>
+            <li>
+                <a href="#material-risk-%e9%80%b2%e5%85%a5-risk-log" aria-label="Material Risk 進入 Risk Log">Material Risk 進入 Risk Log</a></li>
+            <li>
+                <a href="#pjm--scm-%e7%9a%84%e5%9b%ba%e5%ae%9a%e7%af%80%e5%a5%8f" aria-label="PJM ↔ SCM 的固定節奏">PJM ↔ SCM 的固定節奏</a></li></ul>
+            </li>
+            <li>
+                <a href="#%e5%8d%81kickoff-%e5%89%8d%e7%9a%84%e6%9c%80%e5%be%8c%e6%aa%a2%e6%9f%a5%e6%b8%85%e5%96%ae" aria-label="十、Kickoff 前的最後檢查清單">十、Kickoff 前的最後檢查清單</a></li>
+            <li>
+                <a href="#%e6%94%b6%e6%96%82" aria-label="收斂">收斂</a>
+            </li>
+        </ul>
+    </div>
+</details>
+
+  <div class="post-content md-content"><blockquote>
+<p>系列：《TMYTEK 的硬體專案執行心法：從 Kickoff 到量產的工程治理》
+適讀：PJM / EPM / MPM 團隊，以及與我們協作的 BD / SCM / R&amp;D 同仁</p>
+</blockquote>
+<p>Day 1 我們建立了共同語言。今天我們用一個具體案例，示範資深 PJM 在 <strong>Kickoff 之前</strong>應該把 Jira 結構建立到什麼程度。這篇是 PJM 的「起手式」標準作業。</p>
+<hr>
+<h2 id="案例設定project-array-26">案例設定：Project ARRAY-26<a hidden class="anchor" aria-hidden="true" href="#案例設定project-array-26">#</a></h2>
+<blockquote>
+<p><strong>客戶要求：</strong> 2026 Q3 交付 5 套客製化陣列天線 Antenna Card，並通過客戶規範的 POD（Prove of Design）測試。</p>
+</blockquote>
+<p>這個專案橫跨 7 個工程職能：</p>
+<ul>
+<li>天線（ANT / Tony）</li>
+<li>射頻（RF / Vic）</li>
+<li>電子工程（EE / Ken）</li>
+<li>機構與熱流（ME / Andy）</li>
+<li>韌體（FW / Silas）</li>
+<li>GUI 軟體（GUI / Ivy）</li>
+<li>FPGA（FPGA / Keith）</li>
+</ul>
+<p>這個規模的專案，PJM 在 Kickoff 前該完成什麼？我們一步一步走。</p>
+<hr>
+<h2 id="一三個關鍵設計判斷">一、三個關鍵設計判斷<a hidden class="anchor" aria-hidden="true" href="#一三個關鍵設計判斷">#</a></h2>
+<p>進入細節前，先講三個會貫穿整個結構的設計判斷：</p>
+<p><strong>判斷一：這個專案是 Initiative，不是 Epic。</strong></p>
+<p>雖然只有 5 套 Antenna Card 看起來像「一個產品」，但它跨越完整的 NPI 流程、橫跨 7 個職能、時程跨多個季度——符合 Initiative 的判準。在我們跟客戶或董事會的單頁 roadmap 上，這就是一條獨立的線。</p>
+<p><strong>判斷二：Epic 的切分原則是「職能 × NPI 階段」的矩陣。</strong></p>
+<p>這是硬體專案最自然的切法。同一個 NPI 階段（例如 EVT），不同職能要做的事完全不同（ANT 在量測天線、EE 在驗證電源、FPGA 在驗證時序）；同一個職能（例如 ANT），不同階段的工作也完全不同（Concept 在做拓撲、PVT 在做量產一致性）。把這兩個維度交叉，就得到 Epic 結構。</p>
+<p><strong>判斷三：Review Meeting 不是「行政事項」，是 Epic 級別的工作項。</strong></p>
+<p>很多 PJM 把 DR (Design Review) 當作會議室預訂，這是錯的。Review 的準備工作（document package、test report、risk log）是真實的工程工時，必須當 Epic 處理，否則它會在最後一週吃掉所有人的時間。</p>
+<hr>
+<h2 id="二initiative-設定">二、Initiative 設定<a hidden class="anchor" aria-hidden="true" href="#二initiative-設定">#</a></h2>
+<table>
+  <thead>
+      <tr>
+          <th>欄位</th>
+          <th>值</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>Issue Type</td>
+          <td>Initiative</td>
+      </tr>
+      <tr>
+          <td>Status</td>
+          <td>Concept</td>
+      </tr>
+      <tr>
+          <td>Owner</td>
+          <td>PJM（指派）</td>
+      </tr>
+      <tr>
+          <td>Customer</td>
+          <td>(客戶名稱)</td>
+      </tr>
+      <tr>
+          <td>目標完成季度</td>
+          <td>2026 Q3</td>
+      </tr>
+      <tr>
+          <td>預估人月</td>
+          <td>約 42 人月</td>
+      </tr>
+      <tr>
+          <td>策略類別</td>
+          <td>客製化新硬體產品</td>
+      </tr>
+      <tr>
+          <td>主要里程碑</td>
+          <td>DR0 (2026-01-15) · DR1 (2026-03-13) · DR2 (2026-05-22) · DR3 (2026-07-17) · POD (2026-08-21) · 交付 (2026-09-25)</td>
+      </tr>
+  </tbody>
+</table>
+<p>預估人月：7 個職能 × 平均每人 6 個月參與 × 平均 0.6 投入比例 ≈ 25 人月直接投入，加上 PJM、QA、生產協助、Review 籌備等間接約 17 人月，合計 42 人月。</p>
+<hr>
+<h2 id="三npi-階段時程主軸">三、NPI 階段時程主軸<a hidden class="anchor" aria-hidden="true" href="#三npi-階段時程主軸">#</a></h2>
+<p>我們用 9 個月的標準節奏：</p>
+<table>
+  <thead>
+      <tr>
+          <th>階段</th>
+          <th>起訖</th>
+          <th>週數</th>
+          <th>主要產出</th>
+          <th>Phase Gate</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>Concept &amp; Planning</td>
+          <td>2026-01-05 ~ 01-15</td>
+          <td>2</td>
+          <td>系統架構、技術可行性、BOM 雛形</td>
+          <td>DR0</td>
+      </tr>
+      <tr>
+          <td>Design</td>
+          <td>2026-01-16 ~ 03-13</td>
+          <td>8</td>
+          <td>Schematic、Layout、機構、FW/GUI/FPGA 架構</td>
+          <td>DR1</td>
+      </tr>
+      <tr>
+          <td>EVT</td>
+          <td>2026-03-16 ~ 05-22</td>
+          <td>10</td>
+          <td>EVT 樣品、各職能驗證報告、Risk Log</td>
+          <td>DR2</td>
+      </tr>
+      <tr>
+          <td>DVT</td>
+          <td>2026-05-25 ~ 07-17</td>
+          <td>8</td>
+          <td>DVT 樣品、整合測試、可靠度測試</td>
+          <td>DR3</td>
+      </tr>
+      <tr>
+          <td>PVT</td>
+          <td>2026-07-20 ~ 08-21</td>
+          <td>5</td>
+          <td>5 套量產樣品、產線驗證、客戶 POD</td>
+          <td>POD Pass</td>
+      </tr>
+      <tr>
+          <td>Delivery</td>
+          <td>2026-08-24 ~ 09-25</td>
+          <td>5</td>
+          <td>5 套交付、文件交付、初期保固</td>
+          <td>Initiative Close</td>
+      </tr>
+  </tbody>
+</table>
+<p><strong>重要紀律：</strong> DR0 放在 Concept 結束後、Design 啟動前——這代表 Design 階段只能在 DR0 通過後才啟動。如果 Concept 階段發現某個技術風險過大（例如客戶要求的天線增益實作上極困難），DR0 就是停損點。<strong>這個紀律會省掉 80% 的後期返工。</strong></p>
+<hr>
+<h2 id="四epic-矩陣42-個-epic-的全貌">四、Epic 矩陣：42 個 Epic 的全貌<a hidden class="anchor" aria-hidden="true" href="#四epic-矩陣42-個-epic-的全貌">#</a></h2>
+<p>把 7 個職能 × 5 個階段交叉，加上 5 個 Phase Gate Epic + 2 個橫向整合 Epic，總共 <strong>42 個 Epic</strong>。下表呈現職能 × 階段的矩陣：</p>
+<p><img alt="Project ARRAY-26 Epic 矩陣" loading="lazy" src="/images/array26_epic_matrix.png"></p>
+<table>
+  <thead>
+      <tr>
+          <th>職能</th>
+          <th style="text-align: center">Concept (W1–2)</th>
+          <th style="text-align: center">Design (W3–10)</th>
+          <th style="text-align: center">EVT (W11–20)</th>
+          <th style="text-align: center">DVT (W21–28)</th>
+          <th style="text-align: center">PVT (W29–33)</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><strong>ANT</strong> Tony</td>
+          <td style="text-align: center">陣列拓撲 / 增益分析</td>
+          <td style="text-align: center">天線元件設計 / EM 模擬</td>
+          <td style="text-align: center">EVT 天線量測 / S 參數</td>
+          <td style="text-align: center">DVT 陣列校準</td>
+          <td style="text-align: center">PVT 量產一致性</td>
+      </tr>
+      <tr>
+          <td><strong>RF</strong> Vic</td>
+          <td style="text-align: center">RF 鏈路預算 / 元件選型</td>
+          <td style="text-align: center">RF 電路設計 / 模擬</td>
+          <td style="text-align: center">EVT RF 性能驗證</td>
+          <td style="text-align: center">DVT RF 校準與穩定性</td>
+          <td style="text-align: center">PVT RF 量產測試程式</td>
+      </tr>
+      <tr>
+          <td><strong>EE</strong> Ken</td>
+          <td style="text-align: center">系統電源與訊號架構</td>
+          <td style="text-align: center">Schematic / PCB Layout</td>
+          <td style="text-align: center">EVT 板級驗證</td>
+          <td style="text-align: center">DVT 整合與 SI/PI</td>
+          <td style="text-align: center">PVT 板級量產驗證</td>
+      </tr>
+      <tr>
+          <td><strong>ME</strong> Andy</td>
+          <td style="text-align: center">機構架構 / 熱流預估</td>
+          <td style="text-align: center">機構詳細設計 / 熱模擬</td>
+          <td style="text-align: center">EVT 機構與熱驗證</td>
+          <td style="text-align: center">DVT 環境與可靠度</td>
+          <td style="text-align: center">PVT 量產治具</td>
+      </tr>
+      <tr>
+          <td><strong>FW</strong> Silas</td>
+          <td style="text-align: center">韌體架構與介面定義</td>
+          <td style="text-align: center">韌體核心開發</td>
+          <td style="text-align: center">EVT 韌體驗證與 bring-up</td>
+          <td style="text-align: center">DVT 韌體穩定化</td>
+          <td style="text-align: center">PVT 韌體 release</td>
+      </tr>
+      <tr>
+          <td><strong>GUI</strong> Ivy</td>
+          <td style="text-align: center">GUI 需求與架構</td>
+          <td style="text-align: center">GUI 開發 / API 串接</td>
+          <td style="text-align: center">EVT GUI 整合測試</td>
+          <td style="text-align: center">DVT GUI 穩定化</td>
+          <td style="text-align: center">PVT GUI 交付版</td>
+      </tr>
+      <tr>
+          <td><strong>FPGA</strong> Keith</td>
+          <td style="text-align: center">FPGA 架構與 IP 評估</td>
+          <td style="text-align: center">FPGA RTL 開發 / 模擬</td>
+          <td style="text-align: center">EVT FPGA bring-up</td>
+          <td style="text-align: center">DVT FPGA 時序與穩定性</td>
+          <td style="text-align: center">PVT FPGA bitstream release</td>
+      </tr>
+  </tbody>
+</table>
+<p><strong>外加 5 個跨職能 Phase Gate Epic：</strong></p>
+<ul>
+<li>DR0 · Concept Review · 2026-01-15</li>
+<li>DR1 · Design Review · 2026-03-13</li>
+<li>DR2 · EVT Exit Review · 2026-05-22</li>
+<li>DR3 · DVT Exit Review · 2026-07-17</li>
+<li>POD · 客戶 Prove of Design · 2026-08-21</li>
+</ul>
+<p><strong>外加 2 個橫向整合 Epic：</strong></p>
+<ul>
+<li>系統整合測試（跨 EVT / DVT，PJM 主導，所有職能協作）</li>
+<li>文件交付與客戶簽收（PVT 後段，PJM + 文管）</li>
+</ul>
+<hr>
+<h2 id="五investment-category-的分配">五、Investment Category 的分配<a hidden class="anchor" aria-hidden="true" href="#五investment-category-的分配">#</a></h2>
+<p>注意一個關鍵設計：<strong>同一個 Initiative 底下的 Epic 會分屬不同 Investment Category</strong>。具體分配：</p>
+<table>
+  <thead>
+      <tr>
+          <th>階段</th>
+          <th>Investment Category</th>
+          <th>Epic 數量</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>Concept + Design (W1–10)</td>
+          <td>1. 新硬體產品</td>
+          <td>14</td>
+      </tr>
+      <tr>
+          <td>EVT + DVT (W11–28)</td>
+          <td>4. 驗證 / 認證 / 合規</td>
+          <td>14</td>
+      </tr>
+      <tr>
+          <td>PVT (W29–33)</td>
+          <td>5. 製造 / NPI</td>
+          <td>7</td>
+      </tr>
+      <tr>
+          <td>Phase Gate (DR0–DR3、POD)</td>
+          <td>1. 新硬體產品</td>
+          <td>5</td>
+      </tr>
+      <tr>
+          <td>系統整合 + 文件交付</td>
+          <td>1 + 5（各一）</td>
+          <td>2</td>
+      </tr>
+  </tbody>
+</table>
+<p>當 VP 看儀表板時，這個專案的工時會自然分布在三個類別——這正反映了硬體專案的真實樣貌：「真正在做新東西」的時間佔約 40%，「驗證」佔 40%，「量產導入」佔 20%。<strong>如果某個硬體專案 90% 都歸在類別 1，那一定是分類錯誤。</strong></p>
+<hr>
+<h2 id="六story-與-task-範例以-ee-evt-為例">六、Story 與 Task 範例：以 EE-EVT 為例<a hidden class="anchor" aria-hidden="true" href="#六story-與-task-範例以-ee-evt-為例">#</a></h2>
+<p>完整 42 個 Epic 全展開到 Story 會超過 300 個 Story、上千個 Task。我們選一個代表性 Epic 完整展開，其他套用相同模式。</p>
+<h3 id="epicee-evt--evt-板級驗證ken-主責">Epic：EE-EVT · EVT 板級驗證（Ken 主責）<a hidden class="anchor" aria-hidden="true" href="#epicee-evt--evt-板級驗證ken-主責">#</a></h3>
+<table>
+  <thead>
+      <tr>
+          <th>欄位</th>
+          <th>值</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>Investment Category</td>
+          <td>4. 驗證 / 認證 / 合規</td>
+      </tr>
+      <tr>
+          <td>主責職能</td>
+          <td>EE</td>
+      </tr>
+      <tr>
+          <td>貢獻職能</td>
+          <td>FW, FPGA, ANT, RF</td>
+      </tr>
+      <tr>
+          <td>當前階段</td>
+          <td>EVT</td>
+      </tr>
+      <tr>
+          <td>規模估算</td>
+          <td>硬體日曆 6 週 + 工程人日 22</td>
+      </tr>
+      <tr>
+          <td>起訖</td>
+          <td>2026-03-30 ~ 2026-05-08</td>
+      </tr>
+      <tr>
+          <td>Definition of Done</td>
+          <td>EVT 板通過所有電源 / 訊號完整性 / 介面驗證、輸出 EVT Test Report、Risk Log 更新、進入 DR2 候選</td>
+      </tr>
+  </tbody>
+</table>
+<p><strong>Story 列表（11 個）：</strong></p>
+<table>
+  <thead>
+      <tr>
+          <th>Story Key</th>
+          <th>名稱</th>
+          <th>SP</th>
+          <th>職能</th>
+          <th>狀態類型</th>
+          <th>天數</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>ARR-301</td>
+          <td>EVT 板開箱檢查與目視 / X-ray</td>
+          <td>2</td>
+          <td>EE</td>
+          <td>Active</td>
+          <td>1</td>
+      </tr>
+      <tr>
+          <td>ARR-302</td>
+          <td>Power-on 測試</td>
+          <td>3</td>
+          <td>EE</td>
+          <td>Active</td>
+          <td>2</td>
+      </tr>
+      <tr>
+          <td>ARR-303</td>
+          <td>各電源 rail 量測與紋波分析</td>
+          <td>5</td>
+          <td>EE</td>
+          <td>Active</td>
+          <td>3</td>
+      </tr>
+      <tr>
+          <td>ARR-304</td>
+          <td>系統 clock 訊號完整性量測</td>
+          <td>3</td>
+          <td>EE</td>
+          <td>Active</td>
+          <td>2</td>
+      </tr>
+      <tr>
+          <td>ARR-305</td>
+          <td>High-speed 介面眼圖量測</td>
+          <td>5</td>
+          <td>EE</td>
+          <td>Active</td>
+          <td>3</td>
+      </tr>
+      <tr>
+          <td>ARR-306</td>
+          <td>等待 FW bring-up 完成</td>
+          <td>0</td>
+          <td>EE</td>
+          <td><strong>External Wait</strong></td>
+          <td>5</td>
+      </tr>
+      <tr>
+          <td>ARR-307</td>
+          <td>與 FW 協作驗證控制介面</td>
+          <td>3</td>
+          <td>EE+FW</td>
+          <td>Active</td>
+          <td>2</td>
+      </tr>
+      <tr>
+          <td>ARR-308</td>
+          <td>與 FPGA 協作驗證 SerDes 連通</td>
+          <td>5</td>
+          <td>EE+FPGA</td>
+          <td>Active</td>
+          <td>3</td>
+      </tr>
+      <tr>
+          <td>ARR-309</td>
+          <td>熱量測（搭配 ME）</td>
+          <td>3</td>
+          <td>EE+ME</td>
+          <td>Active</td>
+          <td>2</td>
+      </tr>
+      <tr>
+          <td>ARR-310</td>
+          <td>撰寫 EVT 板級 Test Report</td>
+          <td>3</td>
+          <td>EE</td>
+          <td>Active</td>
+          <td>2</td>
+      </tr>
+      <tr>
+          <td>ARR-311</td>
+          <td>更新 Risk Log 給 DR2</td>
+          <td>2</td>
+          <td>EE</td>
+          <td>Active</td>
+          <td>1</td>
+      </tr>
+  </tbody>
+</table>
+<p><strong>注意 ARR-306 這張 External Wait 狀態的 Story</strong>——這是硬體專案的關鍵紀律。等待韌體 bring-up 完成是真實發生的時間，<strong>必須建票而非隱藏</strong>。否則 DR2 倒數時會發現「為什麼 EE 的工作好像都被推遲」，但其實是依賴鏈問題。把它顯性化，PJM 才能在週會上看到「EE 卡住了不是因為慢，是因為 FW」，並去推 FW。</p>
+<hr>
+<h2 id="七phase-gate-epic以-dr2-為例">七、Phase Gate Epic：以 DR2 為例<a hidden class="anchor" aria-hidden="true" href="#七phase-gate-epic以-dr2-為例">#</a></h2>
+<p>DR2（EVT Exit Review）是這個專案最關鍵的 Phase Gate，決定能不能進 DVT。</p>
+<p><strong>Story 列表（10 個，由 PJM 拆分給各職能）：</strong></p>
+<table>
+  <thead>
+      <tr>
+          <th>Story Key</th>
+          <th>名稱</th>
+          <th>職能</th>
+          <th>SP</th>
+          <th>天數</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>ARR-401</td>
+          <td>ANT 提交 EVT 天線量測報告</td>
+          <td>ANT</td>
+          <td>3</td>
+          <td>2</td>
+      </tr>
+      <tr>
+          <td>ARR-402</td>
+          <td>RF 提交 EVT RF 性能驗證報告</td>
+          <td>RF</td>
+          <td>3</td>
+          <td>2</td>
+      </tr>
+      <tr>
+          <td>ARR-403</td>
+          <td>EE 提交 EVT 板級驗證報告</td>
+          <td>EE</td>
+          <td>3</td>
+          <td>2</td>
+      </tr>
+      <tr>
+          <td>ARR-404</td>
+          <td>ME 提交 EVT 機構與熱驗證報告</td>
+          <td>ME</td>
+          <td>3</td>
+          <td>2</td>
+      </tr>
+      <tr>
+          <td>ARR-405</td>
+          <td>FW 提交 EVT 韌體驗證報告</td>
+          <td>FW</td>
+          <td>3</td>
+          <td>2</td>
+      </tr>
+      <tr>
+          <td>ARR-406</td>
+          <td>GUI 提交 EVT GUI 整合測試報告</td>
+          <td>GUI</td>
+          <td>2</td>
+          <td>1</td>
+      </tr>
+      <tr>
+          <td>ARR-407</td>
+          <td>FPGA 提交 EVT FPGA bring-up 報告</td>
+          <td>FPGA</td>
+          <td>3</td>
+          <td>2</td>
+      </tr>
+      <tr>
+          <td>ARR-408</td>
+          <td>PJM 整合 EVT 跨職能 Risk Log</td>
+          <td>PJM</td>
+          <td>3</td>
+          <td>2</td>
+      </tr>
+      <tr>
+          <td>ARR-409</td>
+          <td>PJM 撰寫 DR2 簡報</td>
+          <td>PJM</td>
+          <td>5</td>
+          <td>3</td>
+      </tr>
+      <tr>
+          <td>ARR-410</td>
+          <td>DR2 會議召開 + Exit Criteria 簽核</td>
+          <td>All</td>
+          <td>2</td>
+          <td>1</td>
+      </tr>
+  </tbody>
+</table>
+<h3 id="dr2-的-exit-criteriapjm-必須在-kickoff-前就明確定義">DR2 的 Exit Criteria（PJM 必須在 Kickoff 前就明確定義）<a hidden class="anchor" aria-hidden="true" href="#dr2-的-exit-criteriapjm-必須在-kickoff-前就明確定義">#</a></h3>
+<ul>
+<li>天線陣列實測增益達到客戶規範 ≥ 95%</li>
+<li>RF 鏈路 EVM 在規範範圍內</li>
+<li>所有電源 rail 紋波 &lt; 規範閾值</li>
+<li>高速介面眼圖通過 mask 規範</li>
+<li>機構通過初步熱穩態測試（穩態溫度 &lt; 規範 -5°C 安全餘裕）</li>
+<li>韌體核心功能 100% 通過</li>
+<li>FPGA bring-up 完成且時序通過 STA</li>
+<li>Risk Log 中 P0/P1 風險全數有 mitigation plan</li>
+</ul>
+<p><strong>PJM 紀律：Exit Criteria 必須在 Kickoff 前寫死、不可在會議上即興放寬。</strong> 如果某項沒過，要嘛延 DR2、要嘛開「Conditional Pass」並建立 follow-up Epic 進入 DVT 階段監控——但 Conditional Pass 一個專案內最多 2 次，第 3 次就要升級到 VP 介入。</p>
+<hr>
+<h2 id="八整合-epic最容易被遺漏的關鍵">八、整合 Epic：最容易被遺漏的關鍵<a hidden class="anchor" aria-hidden="true" href="#八整合-epic最容易被遺漏的關鍵">#</a></h2>
+<p>「系統整合測試」這個 Epic 存在的理由：<strong>單一職能的 Epic 永遠只測試自己負責的部分</strong>。ANT 量測天線、RF 驗證鏈路、EE 驗證電源——但「ANT + RF + EE + FW + FPGA 從頭到尾跑完一次客戶 use case」這件事，沒有任何單一職能會主動做。</p>
+<p>把它變成獨立 Epic，由 PJM + QA 主責。Story 範例：</p>
+<table>
+  <thead>
+      <tr>
+          <th>Story 名稱</th>
+          <th>負責</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>端到端 use case 1：客戶情境 A 全鏈路測試</td>
+          <td>PJM + QA + All</td>
+      </tr>
+      <tr>
+          <td>端到端 use case 2：客戶情境 B 全鏈路測試</td>
+          <td>PJM + QA + All</td>
+      </tr>
+      <tr>
+          <td>跨職能介面壓力測試</td>
+          <td>PJM + EE + FW + FPGA</td>
+      </tr>
+      <tr>
+          <td><strong>客戶 POD 測試 dry run（POD 前 2 週）</strong></td>
+          <td>PJM + QA + All</td>
+      </tr>
+  </tbody>
+</table>
+<p>最後那個 Story 是 PJM 的關鍵風險控管動作——<strong>在客戶來看 POD 之前，自己先把 POD 跑一遍</strong>。任何 PJM 不做這個 dry run 就讓客戶來測的，幾乎都會在 POD 當天出包。</p>
+<hr>
+<h2 id="九pjm-與-scm-的互動採購物料的關鍵環節">九、PJM 與 SCM 的互動：採購物料的關鍵環節<a hidden class="anchor" aria-hidden="true" href="#九pjm-與-scm-的互動採購物料的關鍵環節">#</a></h2>
+<blockquote>
+<p>這一節特別寫給 SCM 團隊與 PJM 團隊閱讀。我們的合作介面在這裡。</p>
+</blockquote>
+<p>硬體專案的成功有一半在工程，另一半在物料。<strong>PJM 把 Epic 規劃好了，但如果零件三週後才到，所有的 Epic 計畫都是空的。</strong> 這就是 PJM 與 SCM 必須緊密協作的原因。</p>
+<h3 id="採購觸發時機">採購觸發時機<a hidden class="anchor" aria-hidden="true" href="#採購觸發時機">#</a></h3>
+<p>在我們的 NPI 流程中，主要的採購觸發點有 <strong>3 個</strong>：</p>
+<table>
+  <thead>
+      <tr>
+          <th>觸發點</th>
+          <th>時機</th>
+          <th>採購規模</th>
+          <th>用途</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><strong>POC 物料</strong></td>
+          <td>Concept 階段啟動後</td>
+          <td>少量（1–2 套）</td>
+          <td>技術可行性驗證、實驗用</td>
+      </tr>
+      <tr>
+          <td><strong>EVT 物料</strong></td>
+          <td>DR0 通過、Design 階段中段</td>
+          <td>小量（3–5 套）</td>
+          <td>EVT 樣品製作</td>
+      </tr>
+      <tr>
+          <td><strong>DVT 物料</strong></td>
+          <td>DR1 通過、Design 完成後</td>
+          <td>中量（5–10 套）</td>
+          <td>DVT 樣品製作 + 認證測試件</td>
+      </tr>
+  </tbody>
+</table>
+<p>PVT 階段的量產物料因為跟產線排程綁在一起，由 SCM 主導、PJM 配合，不在這份 PJM 起手式的範圍。</p>
+<h3 id="標準採購流程">標準採購流程<a hidden class="anchor" aria-hidden="true" href="#標準採購流程">#</a></h3>
+<p>每一個觸發點，PJM 與 SCM 之間走相同的標準流程：</p>
+<pre tabindex="0"><code>Step 1：PJM 產出 Material Request List (MRL)
+        ↓
+Step 2：MRL 提交給 SCM 生/物管團隊
+        ↓
+Step 3：SCM 回報每個料件的交期承諾 (ETA)
+        ↓
+Step 4：PJM 對照 Epic 時程，確認交期是否支援
+        ↓
+Step 5：若有衝突 → 觸發 Design 端 alternative 評估
+        若無衝突 → SCM 正式下單
+        ↓
+Step 6：SCM 提供下單後追蹤窗口（料況週報）
+</code></pre><h3 id="material-request-list-mrl-必填欄位">Material Request List (MRL) 必填欄位<a hidden class="anchor" aria-hidden="true" href="#material-request-list-mrl-必填欄位">#</a></h3>
+<p>PJM 提交給 SCM 的 MRL 必須包含以下欄位。<strong>欄位不齊全的 MRL，SCM 應該打回，不要勉強處理</strong>——這是雙方共同的紀律：</p>
+<table>
+  <thead>
+      <tr>
+          <th>欄位</th>
+          <th>說明</th>
+          <th>範例</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>Project Code</td>
+          <td>對應 Initiative 代號</td>
+          <td>ARRAY-26</td>
+      </tr>
+      <tr>
+          <td>MRL Phase</td>
+          <td>POC / EVT / DVT</td>
+          <td>EVT</td>
+      </tr>
+      <tr>
+          <td>Required Date</td>
+          <td>物料需到齊的最晚日期</td>
+          <td>2026-03-12</td>
+      </tr>
+      <tr>
+          <td>Linked Epic</td>
+          <td>哪個 Epic 會用到這批料</td>
+          <td>EE-EVT 板級驗證</td>
+      </tr>
+      <tr>
+          <td>Part Number</td>
+          <td>廠商料號或內部料號</td>
+          <td>(依料件)</td>
+      </tr>
+      <tr>
+          <td>Description</td>
+          <td>料件描述</td>
+          <td>LDO 3.3V, 2A, SOT-223</td>
+      </tr>
+      <tr>
+          <td>Quantity</td>
+          <td>需求數量（含 spare）</td>
+          <td>30 pcs（5 套 × 6 顆 + 安全庫存）</td>
+      </tr>
+      <tr>
+          <td>Spec Reference</td>
+          <td>規格書 / Datasheet 連結</td>
+          <td>(Confluence link)</td>
+      </tr>
+      <tr>
+          <td>Alternative Acceptable?</td>
+          <td>可否接受替代料</td>
+          <td>Yes / No / 需 Design 評估</td>
+      </tr>
+      <tr>
+          <td>PJM Contact</td>
+          <td>主責 PJM 與職能 Lead</td>
+          <td>(簽核窗口)</td>
+      </tr>
+  </tbody>
+</table>
+<h3 id="scm-交期承諾-eta-confirmation-應回報內容">SCM 交期承諾 (ETA Confirmation) 應回報內容<a hidden class="anchor" aria-hidden="true" href="#scm-交期承諾-eta-confirmation-應回報內容">#</a></h3>
+<p>SCM 收到 MRL 後，必須在 <strong>3 個工作天內</strong>回報每一個料件的：</p>
+<table>
+  <thead>
+      <tr>
+          <th>欄位</th>
+          <th>說明</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>Source</td>
+          <td>供應商 / 代理商 / 現貨商</td>
+      </tr>
+      <tr>
+          <td>Lead Time</td>
+          <td>標準交期</td>
+      </tr>
+      <tr>
+          <td>ETA</td>
+          <td>預計到貨日（含船期 / 通關時間）</td>
+      </tr>
+      <tr>
+          <td>Confidence</td>
+          <td>高 / 中 / 低（信心度）</td>
+      </tr>
+      <tr>
+          <td>Risk Note</td>
+          <td>潛在風險（缺料、價格大幅波動、停產風險等）</td>
+      </tr>
+      <tr>
+          <td>Cost Note</td>
+          <td>單價與整批金額</td>
+      </tr>
+  </tbody>
+</table>
+<p><strong>信心度低的料件必須特別標記</strong>，PJM 就會知道「這個料雖然 ETA 是 3 月 5 日，但 SCM 沒把握」，從而觸發備援評估。</p>
+<h3 id="衝突的處理當交期撐不到-required-date">衝突的處理：當交期撐不到 Required Date<a hidden class="anchor" aria-hidden="true" href="#衝突的處理當交期撐不到-required-date">#</a></h3>
+<p>當 SCM 回報的 ETA 晚於 PJM 的 Required Date，<strong>這是雙方共同的問題</strong>，不是 SCM 的「壞消息」。處理流程：</p>
+<p>第一步是<strong>評估彈性</strong>。PJM 先檢視 Required Date 是不是可以晚一週——很多時候硬體 Epic 排程有 buffer，挪一週不影響 DR Gate。</p>
+<p>第二步是<strong>評估替代料</strong>。如果交期硬卡死，PJM + SCM + EE Lead 三方開短會（不超過 30 分鐘），決定：</p>
+<ul>
+<li>用替代料（PJM 的 EE Lead 評估技術風險）</li>
+<li>加價找現貨（SCM 評估成本影響、PJM 評估能否吸收）</li>
+<li>改變 Epic 順序（PJM 重排，先做不需要該料件的 Epic）</li>
+<li>動 Initiative 時程（升級到 VP 決策）</li>
+</ul>
+<p>第三步是<strong>書面化決策</strong>。任何衝突的解決必須在 Jira 對應 Epic 留下 comment，記錄「2026-02-XX 因 LDO 3.3V 交期延遲 4 週，改用 替代料 PN-12345，EE Lead 已驗證電氣特性可接受」這類紀錄。<strong>這是未來客戶查問或 RMA 追溯時的關鍵證據鏈</strong>。</p>
+<h3 id="material-risk-進入-risk-log">Material Risk 進入 Risk Log<a hidden class="anchor" aria-hidden="true" href="#material-risk-進入-risk-log">#</a></h3>
+<p><strong>所有信心度為「中」或「低」的料件，PJM 應在 Risk Log 建立對應的 Risk 項目</strong>。這讓物料風險變成可監控的物件，而不是 SCM 一個人扛。Risk Log 範例：</p>
+<blockquote>
+<p><strong>Risk-005</strong>: ARRAY-26 的 LDO 3.3V (PN-XXX) 交期信心度低</p>
+<ul>
+<li><strong>Probability</strong>: Medium</li>
+<li><strong>Impact</strong>: High（影響 EE-EVT 進度，連帶 DR2）</li>
+<li><strong>Mitigation</strong>: SCM 已在 1 月底開始追蹤兩家備援代理商</li>
+<li><strong>Contingency</strong>: 改用替代料 PN-12345（EE Lead 已預先評估通過）</li>
+<li><strong>Owner</strong>: SCM 窗口 + PJM</li>
+<li><strong>Trigger</strong>: ETA 確認延後超過 1 週 → 啟用備援</li>
+</ul>
+</blockquote>
+<h3 id="pjm--scm-的固定節奏">PJM ↔ SCM 的固定節奏<a hidden class="anchor" aria-hidden="true" href="#pjm--scm-的固定節奏">#</a></h3>
+<p>除了專案啟動時的 MRL 提交，PJM 與 SCM 在執行中保持兩個固定節奏：</p>
+<p><strong>每週料況週報（SCM 推送）：</strong> 每週五，SCM 給 PJM 一份所有在途料件的狀態更新（已到 / 在途 / 延遲 / 風險）。PJM 把延遲訊號吸收進 Risk Log。</p>
+<p><strong>月度 Material Sync（雙方共同）：</strong> 每月一次 30 分鐘會議，PJM、SCM 生管、SCM 物管三方檢視未來 60 天的物料需求 vs. 供應預測，提早識別未來的衝突點。</p>
+<p><strong>這個節奏是雙向的。</strong> PJM 不只是「下單者」，要主動告訴 SCM 未來規劃；SCM 不只是「執行者」，要主動回報市場訊號（料況變化、價格波動、停產警告）。<strong>Kickoff 前 PJM 與 SCM 要對齊這個節奏</strong>，否則執行階段會變成單向施壓。</p>
+<hr>
+<h2 id="十kickoff-前的最後檢查清單">十、Kickoff 前的最後檢查清單<a hidden class="anchor" aria-hidden="true" href="#十kickoff-前的最後檢查清單">#</a></h2>
+<p>PJM 在 Kickoff 前應該對照這份清單確認：</p>
+<ul>
+<li><input disabled="" type="checkbox"> Initiative 已建立並填寫所有欄位</li>
+<li><input disabled="" type="checkbox"> 42 個 Epic 已建立並標好 Investment Category 與起訖日期</li>
+<li><input disabled="" type="checkbox"> 5 個 Phase Gate Epic 的 Exit Criteria 已寫定</li>
+<li><input disabled="" type="checkbox"> 至少 3 個範例 Epic 已展開到 Story 層級作為團隊參考</li>
+<li><input disabled="" type="checkbox"> Jira Project 權限與自動化規則已設定</li>
+<li><input disabled="" type="checkbox"> <strong>所有職能 Lead（Tony / Vic / Ken / Andy / Silas / Ivy / Keith）已 review 過自己職能的 Epic 範圍並無異議</strong></li>
+<li><input disabled="" type="checkbox"> 客戶 POD 規範已附在 Initiative 描述中或連結到 Confluence</li>
+<li><input disabled="" type="checkbox"> 整合測試 Epic 與 dry run 計畫已被各 Lead 知道</li>
+<li><input disabled="" type="checkbox"> <strong>POC 階段 MRL 已提交 SCM 並取得 ETA 確認</strong></li>
+<li><input disabled="" type="checkbox"> EVT / DVT 階段 MRL 的草稿已建立（即使尚未提交，先讓 SCM 預知）</li>
+<li><input disabled="" type="checkbox"> <strong>Material Risk 已進入 Risk Log</strong></li>
+<li><input disabled="" type="checkbox"> PJM ↔ SCM 月度 Material Sync 排入雙方行事曆</li>
+<li><input disabled="" type="checkbox"> Initial Risk Log 已建立（至少 5–10 項初始 Risk）</li>
+</ul>
+<p>倒數第 5 點最容易被跳過——Kickoff 變成 PJM 單向宣告。這是大忌。<strong>Kickoff 前 1 週必須跟每個 Lead 1-on-1 過一次他們職能的 Epic 列表</strong>，他們點頭你才能寫進 Jira。這個動作做扎實，後面 9 個月可以省下無數的「我以為不是我負責」的爭執。</p>
+<hr>
+<h2 id="收斂">收斂<a hidden class="anchor" aria-hidden="true" href="#收斂">#</a></h2>
+<p>到這裡，Project ARRAY-26 在 Kickoff 前的 Jira 結構完整建立。明天的 Day 3 將進入 Kickoff 之後——<strong>起手式做扎實只是 30 分，執行治理才是另外 70 分</strong>。我們會講五大類執行事件（Issue / Bug / Risk / CR / Dependency Slip）的處理流程，以及四層治理節奏。</p>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+    </ul>
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+        <span>&copy; 2026 <a href="http://localhost:1313/">Ethan&#39;s Blog</a></span> · 
+
+    
+    
+    <span>
+        Powered by
+        <a href="https://gohugo.io/?utm_source=papermod" rel="noopener" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" id="top-link" class="top-link hidden" aria-label="go to top" title="Go to Top (Alt + G)" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+        stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevrons-up">
+        <polyline points="17 11 12 6 7 11"></polyline>
+        <polyline points="17 18 12 13 7 18"></polyline>
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu');
+    if (menu) {
+        
+        const scrollPosition = localStorage.getItem("menu-scroll-position");
+        if (scrollPosition) {
+            menu.scrollLeft = parseInt(scrollPosition, 10);
+        }
+        
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var toplink = document.getElementById("top-link");
+    window.onscroll = function () {
+        const scrollThreshold = window.innerHeight;
+        if (document.body.scrollTop > scrollThreshold || document.documentElement.scrollTop > scrollThreshold) {
+            toplink.classList.remove("hidden");
+        } else {
+            toplink.classList.add("hidden");
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        const html = document.querySelector("html");
+        if (html.dataset.theme === "dark") {
+            html.dataset.theme = 'light';
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            html.dataset.theme = 'dark';
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+</body>
+
+</html>

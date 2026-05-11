@@ -1,0 +1,794 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto" data-theme="auto">
+
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>Day 3｜Kickoff 後的執行治理：五大類事件與四層節奏 | Ethan&#39;s Blog</title>
+<meta name="keywords" content="">
+<meta name="description" content="
+系列：《TMYTEK 的硬體專案執行心法：從 Kickoff 到量產的工程治理》
+適讀：PJM / EPM / MPM 團隊，以及與我們協作的 BD / SCM / R&amp;D 同仁
+
+Day 1 建立共同語言、Day 2 完成 Kickoff 起手式。今天進入專案執行階段。">
+<meta name="author" content="Ethan Lin">
+<link rel="canonical" href="http://localhost:1313/posts/day3_execution/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.26d4b14e2db52c2d8dd96a14e433e0911502c825f55711c569be05732d8147fb.css" integrity="sha256-JtSxTi21LC2N2WoU5DPgkRUCyCX1VxHFab4Fcy2BR/s=" rel="preload stylesheet" as="style">
+<link rel="icon" href="http://localhost:1313/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="http://localhost:1313/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="http://localhost:1313/favicon-32x32.png">
+<link rel="apple-touch-icon" href="http://localhost:1313/apple-touch-icon.png">
+<link rel="mask-icon" href="http://localhost:1313/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="en" href="http://localhost:1313/posts/day3_execution/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --code-block-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+                color-scheme: dark;
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .toc {
+                background: var(--entry);
+            }
+        }
+
+    </style>
+</noscript>
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.querySelector("html").dataset.theme = 'dark';
+    } else if (localStorage.getItem("pref-theme") === "light") {
+       document.querySelector("html").dataset.theme = 'light';
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.querySelector("html").dataset.theme = 'dark';
+    } else {
+        document.querySelector("html").dataset.theme = 'light';
+    }
+
+</script><meta property="og:url" content="http://localhost:1313/posts/day3_execution/">
+  <meta property="og:site_name" content="Ethan&#39;s Blog">
+  <meta property="og:title" content="Day 3｜Kickoff 後的執行治理：五大類事件與四層節奏">
+  <meta property="og:description" content="系列：《TMYTEK 的硬體專案執行心法：從 Kickoff 到量產的工程治理》 適讀：PJM / EPM / MPM 團隊，以及與我們協作的 BD / SCM / R&amp;D 同仁
+Day 1 建立共同語言、Day 2 完成 Kickoff 起手式。今天進入專案執行階段。">
+  <meta property="og:locale" content="zh_tw">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2026-05-10T12:37:40+08:00">
+    <meta property="article:modified_time" content="2026-05-10T12:37:40+08:00">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Day 3｜Kickoff 後的執行治理：五大類事件與四層節奏">
+  <meta name="twitter:description" content="系列：《TMYTEK 的硬體專案執行心法：從 Kickoff 到量產的工程治理》 適讀：PJM / EPM / MPM 團隊，以及與我們協作的 BD / SCM / R&amp;D 同仁
+Day 1 建立共同語言、Day 2 完成 Kickoff 起手式。今天進入專案執行階段。">
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Posts",
+      "item": "http://localhost:1313/posts/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "Day 3｜Kickoff 後的執行治理：五大類事件與四層節奏",
+      "item": "http://localhost:1313/posts/day3_execution/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Day 3｜Kickoff 後的執行治理：五大類事件與四層節奏",
+  "name": "Day 3｜Kickoff 後的執行治理：五大類事件與四層節奏",
+  "description": " 系列：《TMYTEK 的硬體專案執行心法：從 Kickoff 到量產的工程治理》 適讀：PJM / EPM / MPM 團隊，以及與我們協作的 BD / SCM / R\u0026amp;D 同仁\nDay 1 建立共同語言、Day 2 完成 Kickoff 起手式。今天進入專案執行階段。\n",
+  "keywords": [
+    
+  ],
+  "articleBody": " 系列：《TMYTEK 的硬體專案執行心法：從 Kickoff 到量產的工程治理》 適讀：PJM / EPM / MPM 團隊，以及與我們協作的 BD / SCM / R\u0026D 同仁\nDay 1 建立共同語言、Day 2 完成 Kickoff 起手式。今天進入專案執行階段。\n一、起手式 vs. 執行中的本質差異 Kickoff 前做的是確定性規劃——已知的工作、已知的依賴、已知的時程。Kickoff 後進入不確定性管理——未知的 bug、未預期的 issue、客戶變更、外部依賴失準、技術風險浮現。\n兩者用的工具完全不同。Kickoff 前需要的是結構（Initiative / Epic / Story 的層級），Kickoff 後需要的是流程（事情發生時誰決定什麼、什麼時候升級、什麼時候動 baseline）。\n我們看過的最大專案失敗模式，從來不是「規劃做得不好」，而是「規劃做得很好，但執行中沒有應變治理，新狀況一個一個累積，三個月後 baseline 已經跟現實脫節，PJM 還在維護一個假的計畫表」。起手式做扎實只是 30 分，執行治理才是另外 70 分。\n執行中要處理的事情可以分成五大類：\nIssue（執行中浮現的問題） Bug（軟韌體缺陷） Risk（識別到但尚未發生的風險） Change Request（範圍變更請求） Dependency Slip（依賴鏈延遲） 但先講一個貫穿所有類別的核心紀律：\n二、核心紀律：不要污染原始 Story 新手 PJM 最常犯的錯誤是：執行中發現問題，就直接修改原本的 Story 描述、加 Task、改估算。這會污染歷史資料、破壞 Predictability 計算、讓回顧分析失真。\n正確做法是：原始 Story 凍結，新狀況用新 issue 表達，並用 link 關聯。\n例如 EE-EVT 的 ARR-303（電源 rail 紋波量測）發現紋波超出規範，正確處理是新建一張 Bug ARR-3501，描述「ARR-303 量測發現電源 rail 1 紋波超出規範 12mV」，並用 is caused by 連結到 ARR-303。原始 Story 該標完成就標完成（量測這件事有做），缺陷另外追蹤。\n這個紀律會穿透下面所有五類的處理流程。\n三、第一類：Issue（執行中浮現的問題） 定義： 執行某個 Story 過程中發現的非預期狀況。可能是設計缺陷、量測異常、規格不清、跨職能介面理解不一致。\nJira 表達： 不用 Bug type（Bug 是專指軟韌體缺陷）。Issue 用 Task issue type 加上自定義欄位區分。建議建立一個叫 Execution Issue 的子類型。\n必填欄位：\n欄位 說明 Issue Type Task（標記為 Execution Issue） Severity P0 / P1 / P2 / P3（4 級嚴重度） Linked to 關聯到原始 Story（用 “is caused by” 或 “blocks”） Owner 主責解 issue 的人 Reporter 發現的人 Discovery Phase Concept / Design / EVT / DVT / PVT Target Resolution 目標解決日期 Severity 分級（PJM 必須在 Kickoff 前定義清楚） P0 — 阻斷性： 不解這個 issue，下個 Phase Gate 鐵定過不了。例如 EVT 發現天線增益實測比規範差 5dB——這是 P0，因為 DR2 Exit Criteria 直接卡住。P0 issue 24 小時內必須有 owner 和初步 mitigation plan。\nP1 — 嚴重影響： 不解會大幅增加風險，但有解法繞過。例如電源紋波超規範但已有候選對策（換電容、改 layout）。P1 issue 一週內必須有 mitigation plan。\nP2 — 可控影響： 影響有限，可以排入下個 sprint 處理。\nP3 — Nice to have： 應該修但不影響交付。\n紀律：P0 / P1 數量是 PJM 的健康指標 P0 / P1 的數量是 PJM 的健康指標，不是工程師的指責對象。 如果某週新增 5 個 P0，是專案系統性出問題，不是哪個工程師沒做好。PJM 要做的是分析 root cause（為什麼這麼多 P0 沒在 Concept / Design 階段就抓到？），而不是檢討發現 issue 的人。\n獎勵發現 issue 的人，懲罰隱瞞 issue 的人——這是 TMYTEK 專案文化最重要的設定。\nIssue 工作流 Open → Triaged（PJM + 主責職能 Lead 評過，確認 severity 與 owner）→ In Progress → In Review → Resolved → Closed\n紀律： Issue 的 status 變更要由 owner 主動操作，不要由 PJM 代勞。這個動作是 owner 對團隊的「信號發送」——「我接手了」、「我做完了」。\n四、第二類：Bug（軟韌體缺陷） 定義： 韌體、FPGA、GUI 的功能性缺陷。硬體類缺陷（電路、機構、天線）歸 Issue，不歸 Bug——這是業界慣例，因為 Bug 工作流是針對軟韌體生命週期設計的。\nBug 跟 Issue 處理流程相似，但有兩個關鍵差異：\n差異一：Bug 必須附「重現步驟」與「環境」。\n每個 Bug 在 Open 狀態時，必填欄位包含：Reproduce Steps、Environment（哪個 build、哪個硬體版本、哪個 GUI 版本）、Expected Behavior、Actual Behavior。沒有這四個欄位的 Bug 一律打回——不是 PJM 的紀律，是 QA 的責任。讓 QA 來把這道關，PJM 別介入細節。\n差異二：Bug 要綁 build version。\n用 Jira 的 Affects Version / Fix Version 欄位。Affects Version = 哪個 build 發現的、Fix Version = 哪個 build 計畫修。這個資訊讓 release notes 自動可以生成「這個 build 修了哪些 Bug」。\n特殊處理：Won’t Fix PJM 必須有勇氣對某些 Bug 說「這次不修」。例如 PVT 階段發現一個 P3 GUI 文字錯誤，修它要重做韌體 release flow 再花一週。這時應該 Won’t Fix，並把 Bug 移到下一個 release。\n但 Won’t Fix 必須有書面理由並通知客戶（如果是客戶看得到的東西）。在 Jira 上要有 Resolution = “Won’t Fix” + Comment 說明原因 + 在 Risk Log 記錄這個決定。未來客戶問「為什麼這個沒修？」我們才有東西可以回。\n五、第三類：Risk（識別到但尚未發生的風險） 這是大部分 PJM 處理得最差的一類，但其實是最有價值的一類。\n核心觀念： Issue 是「已發生的問題」，Risk 是「可能發生的問題」。Issue 反應現在，Risk 預測未來。好的 PJM 80% 的時間在處理 Risk，20% 在處理 Issue；差的 PJM 反過來。\nJira 表達：把 Risk 當作獨立 Issue Type 我們把 Risk 當作 Story-level 的特殊 issue type，而不是 Task。原因是 Risk 有自己的生命週期（識別 → 評估 → 緩解 → 監控 → 關閉）。\n必填欄位：\n欄位 說明 Risk Type Technical / Schedule / Resource / External / Customer Probability High / Medium / Low Impact High / Medium / Low Risk Score Probability × Impact 自動計算 Mitigation Plan 怎麼降低發生機率 Contingency Plan 萬一發生了怎麼辦 Trigger 什麼狀況代表這個 Risk 已經要發生了 Owner 主責監控與緩解的人 Phase 這個 Risk 主要影響哪個階段 Risk Log 維護紀律 每週的 PJM 站立會，第一個議程永遠是 Risk Log 巡檢。 不是 Issue、不是進度，是 Risk。\n理由：Issue 自己會吵，Risk 不吵但會在最壞的時刻爆炸。\n每週要做的事：新識別的 Risk 加入、已緩解的 Risk 關閉、Trigger 已觸發的 Risk 升級為 Issue（注意：這時要新建一個 Issue 並 link 到原 Risk，不要直接改 Risk 的 type）。\nARRAY-26 的初始 Risk Log PJM 在 Kickoff 時應該已經識別的 Risk（基於專案類型可預測，不是事後諸葛）：\nRisk Type P I Mitigation Contingency 客戶 POD 規範解讀分歧 Customer M H DR0 前與客戶開規範 walkthrough、簽 understanding 文件 升級到客戶決策層 天線陣列實測達不到客戶增益規範 Technical M H Concept 階段做 link budget 預留 3dB 餘裕 啟用 plan B 拓撲、申請客戶規範鬆綁 FPGA 與 RF 整合 timing 失準 Technical M M EVT 早期就跑跨職能 bring-up 增加 EE + FPGA 整合 sprint ODM 打樣排程延遲 External H M Design 階段就鎖兩家 PCB 廠 啟用備援廠商 客戶端口對接窗口變動 Customer M M 雙窗口（主 + 副）並建立月度同步會 升級到 PJM 對 PJM 韌體與 GUI 介面定義改動 Technical H M Design 階段定義 API contract 並 freeze 開 sprint 衝刺對接 環境測試一次未過要重做 External M H EVT 階段先做粗測、不要拖到 DVT 才一次 預留 2 週環境測試 buffer 量產治具開發落後 Schedule M H NPI Epic 在 DVT 階段就啟動而非 PVT 用試產治具替代正式治具交付 關鍵料件交期信心度低 External M H SCM 已追蹤兩家備援代理商 啟用替代料（EE Lead 已預先驗證） 8–10 個初始 Risk 是合理的數量。少於 5 個代表 PJM 沒認真想，多於 15 個代表 Risk 與 Issue 沒分清楚。\n六、第四類：Change Request（範圍變更請求） 這是專案治理裡最容易失控的一類。\n核心紀律：所有範圍變更必須走正式流程，不接受口頭 / Email / Slack 直接生效。\nJira 表達 CR 是跟 Initiative 同層級的 Issue Type（不掛在 Epic 下）。原因：CR 可能影響多個 Epic、多個職能。\n必填欄位：\n欄位 說明 Source Customer / Internal / External Regulation Requestor 提出變更的人 Description 要改什麼 Reason 為什麼要改 Affected Epics 受影響的 Epic（多選） Schedule Impact 預估影響時程多久 Resource Impact 預估增加多少人月 Cost Impact 預估增加多少成本 Recommendation PJM 的建議：Approve / Reject / Defer Decision 最終決議 + 簽核者 CR 工作流 Submitted → Under Analysis（PJM + 相關 Lead 評估，1 週內完成）→ Decision Pending → Approved / Rejected / Deferred → Implemented → Closed\n決策權限階梯（Kickoff 前必須與 VP 對齊） 簽核層級 適用 PJM 可決定 Schedule Impact ≤ 1 週、Resource Impact ≤ 5 人日、Cost ≤ 5 萬台幣，且不影響客戶可見規格 VP 產品需簽核 Schedule Impact 1–4 週、Resource Impact 5–20 人日、不改變客戶交付承諾的內部變更 客戶 + VP 雙方簽核 Schedule Impact \u003e 4 週、影響客戶可見規格、影響交付日 這個階梯必須在 Kickoff 時對全團隊宣告。 因為現實中 80% 的 CR 是工程師覺得「順便改一下沒關係」的小事，沒走流程直接做了，三個月後累積成 baseline 偏離。階梯講清楚，工程師才知道什麼算「順便」、什麼必須走流程。\nCR 對 baseline 的處理 CR 通過後，不要直接改原始 Epic / Story 的估算和時程。正確做法：\n原始 Story 的 baseline（規劃時的估算與時程）凍結保留，當作歷史記錄 CR 通過後，建立新的 Story（如果是新增功能）或新的 sub-task（如果是修改現有功能），清楚標記為「來自 CR-XXX」 更新 Epic 的「Latest Estimate」欄位，反映 CR 後的最新預估 這樣做的好處：年底回顧時，可以清楚看到「原本規劃 100 人月，CR 加了 15 人月，實際做了 110 人月」——CR 的影響被顯性化。\n七、第五類：Dependency Slip（依賴鏈延遲） 定義： 外部依賴（供應商、ODM、實驗室、客戶）或跨職能依賴沒在預定時間到位。\n這一類在純軟體公司不太重要，硬體專案最常爆的就是這類。\n偵測 不用建新的 issue type。Dependency Slip 的訊號是 Story 在 External Wait 狀態超過原始預估時間 50%。例如某個 Story 規劃 External Wait 5 天（等打樣回來），第 8 天還沒回——觸發 Dependency Slip。\n可以用 Jira automation 自動偵測：當 status = External Wait 且超過某天數，自動 escalate 給 PJM。\n處理 PJM 收到 escalation 後 24 小時內要做三件事：\n第一，確認真實狀態。打給供應商 / 實驗室 / 客戶聯絡窗口，問清楚到底什麼時候會到。不要用郵件問，用電話——電話會逼對方給出明確答案，郵件會收到「我們儘快處理」這種無用的回覆。\n第二，評估對下游 Epic 的影響。如果延 3 天，可能下游吸收得了；如果延 2 週，必須觸發 baseline 調整。\n第三，決定是否升級為 Risk 或 Issue。如果延遲已成定局，建立一個 Issue；如果還有可能補救，更新原本的 Risk Log。\n預防：依賴日曆 PJM 應該在 Kickoff 前建立 Dependency Calendar，把所有外部依賴的時間點列出來：第一輪 PCB 打樣回來日、第二輪打樣回來日、機殼模具打樣日、認證實驗室排期、客戶樣品評估會議、ODM 試產日、海運交期……每一項都標出 owner 和 trigger date。\n每週 PJM 站立會要過一遍——比起追工程師進度，追外部依賴是 PJM 真正創造價值的地方。工程師會自動推進工作，外部依賴不會自動推進它自己。\n這也是 Day 2 講過的 PJM ↔ SCM 月度 Material Sync 的延伸——SCM 是 PJM 在物料依賴上最重要的合作夥伴，依賴日曆上凡涉及料件的項目，都應該與 SCM 共同維護。\n八、四層治理節奏 工具講完了，最後講節奏——這些工具要透過什麼樣的會議與檢視時點來發揮作用。\n我們採用四層循環：\n每日（Daily）：非同步 Slack standup 不開站立會。45 人 + 矩陣式組織，硬要每天開站立會會崩潰。改用 Slack 非同步 standup——每個職能在自己的 channel 早上 10 點前 post 三件事：今天做什麼、有沒有 blocker、有沒有需要 PJM 知道的事。\nPJM 每天上午看這些，發現異常才打電話介入。\n每週（Weekly）：PJM Sync · 30–45 分鐘 · 職能 Lead + PJM 議程固定四項：\nRisk Log 巡檢（10 分鐘）：新識別 / 已關閉 / Trigger 接近的 Risk P0 / P1 Issue 與 Bug 進度（10 分鐘） 下週的依賴日曆（5 分鐘）：含 SCM 料況週報重點摘要 下週的職能負載（5 分鐘） 這 30 分鐘是整個專案最關鍵的會議，因為這時做的調整成本最低。\n雙週（Bi-weekly）：Sprint Retro + Demo · 60 分鐘 · 全團隊 工程紀律的會議——demo 已完成的 Story、Retro 上個 Sprint 的流動指標、討論工程流程改善。注意這個會議不討論 schedule 或 risk，那是 PJM Sync 的事。\n每月（Monthly）：VP Review · 45 分鐘 · PJM + VP 給 VP 看的——當月儀表板狀態、需要 VP 簽核的 CR、未來一個月的 Risk forecast。\nPhase Gate（不定期）：Design Review · 120 分鐘 · 全 stakeholder + VP Phase Gate 不是「會議」，是「決策」——有結構化的 Exit Criteria 對照、明確的 Pass / Conditional Pass / Fail / Reject 結果。\n九、Initiative 健康度標準（給 VP 看的判斷工具） 什麼時候 VP 該介入一個專案，什麼時候放手讓 PJM 做？我們用三個指標：\n指標 健康 警戒 紅燈 未解決 P0 / P1 數量 ≤ 3 4–6 ≥ 7 Risk Score 加權合計趨勢 平穩或下降 連 2 週上升 連 4 週上升 Predictability（承諾 vs 完成） 80–110% 60–80% \u003c 60% 連 2 期 如果某專案連續兩週進入紅燈區，VP 應該介入——這不是責備 PJM，是支援 PJM 解開組織層級的瓶頸。\n十、收斂：完整的 PJM 工具箱 到這裡，從 Kickoff 前的 Jira 框架，到 Kickoff 後的執行治理，PJM 在硬體專案上需要的工具都齊了。\nKickoff 前準備： Initiative + Epic 結構、Phase Gate Exit Criteria、初始 Risk Log、Dependency Calendar、決策權限階梯、SCM MRL 與 ETA 確認。\nKickoff 後維護： Issue / Bug 的 Triage、Risk Log 的週度巡檢、CR 的正式流程、依賴鏈的主動追蹤、四層治理節奏。\nVP 真正要看的： 月度的儀表板、Risk Score 加權合計、未解決 P0/P1 數量、Predictability 趨勢。\n三天系列總結 這個系列的目的不是講「Jira 怎麼用」——任何 PJM 都可以查 Atlassian 文件學會 Jira 操作。這個系列要建立的是 TMYTEK 內部的工程治理共同語言：\nDay 1 建立資源語言（Investment Category + 層級結構） Day 2 示範 Kickoff 前的起手式（用 ARRAY-26 為例 + PJM ↔ SCM 採購流程） Day 3 講 Kickoff 後的執行治理（五大類事件 + 四層節奏） 這套方法不是 TMYTEK 獨創——它是 FAANG 工程治理 + 硬體 NPI 流程 + 矩陣式組織管理的綜合，並針對我們公司的實況（45 人、軟硬整合、ODM/EMS 量產、Jira Plans）做了細部調整。\nPJM 的核心價值不是「催進度」，是讓正確的決策在正確的時間被做出來。把結構建好、把流程跑好，催進度的需求自然會減少 80%。\n接下來： 這套方法已開始在 ARRAY-26 與其他進行中的專案套用。如果你的專案也準備啟動，請聯絡 PJM 團隊取得 Jira Project Template 與初始 Risk Log 範本，避免從零開始。\n如果你（特別是 BD / SCM / R\u0026D 的同仁）對這套方法的某個面向有疑問，或者想把這套方法如何套用在你協作的專案上，歡迎在這篇文章下留言或直接找 PJM 團隊討論。\n",
+  "wordCount" : "5554",
+  "inLanguage": "en",
+  "datePublished": "2026-05-10T12:37:40+08:00",
+  "dateModified": "2026-05-10T12:37:40+08:00",
+  "author":{
+    "@type": "Person",
+    "name": "Ethan Lin"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "http://localhost:1313/posts/day3_execution/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Ethan's Blog",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "http://localhost:1313/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+<body id="top">
+    <header class="header">
+    <nav class="header-nav">
+        <div class="logo">
+            <a href="http://localhost:1313/" accesskey="h" title="Ethan&#39;s Blog (Alt + H)">Ethan&#39;s Blog</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" class="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="Toggle theme">
+                    <svg class="moon" xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg class="sun" xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu" class="menu">
+            <li>
+                <a href="http://localhost:1313/archives" title="Archive">
+                    <span>Archive</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://localhost:1313/search" title="Search (Alt &#43; /)" accesskey=/>
+                    <span>Search</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://localhost:1313/tags" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    
+    <h1 class="post-title entry-hint-parent">
+      Day 3｜Kickoff 後的執行治理：五大類事件與四層節奏
+    </h1>
+    <div class="post-meta">
+
+<span title='2026-05-10 12:37:40 +0800 CST'>May 10, 2026</span>&nbsp;·&nbsp;<span>Ethan Lin</span>
+
+</div>
+  </header> <details class="toc"  open>
+    <summary accesskey="c" title="(Alt + C)">
+        <span class="title">目錄</span>
+    </summary>
+
+    <div class="inner"><ul>
+            <li>
+                <a href="#%e4%b8%80%e8%b5%b7%e6%89%8b%e5%bc%8f-vs-%e5%9f%b7%e8%a1%8c%e4%b8%ad%e7%9a%84%e6%9c%ac%e8%b3%aa%e5%b7%ae%e7%95%b0" aria-label="一、起手式 vs. 執行中的本質差異">一、起手式 vs. 執行中的本質差異</a></li>
+            <li>
+                <a href="#%e4%ba%8c%e6%a0%b8%e5%bf%83%e7%b4%80%e5%be%8b%e4%b8%8d%e8%a6%81%e6%b1%a1%e6%9f%93%e5%8e%9f%e5%a7%8b-story" aria-label="二、核心紀律：不要污染原始 Story">二、核心紀律：不要污染原始 Story</a></li>
+            <li>
+                <a href="#%e4%b8%89%e7%ac%ac%e4%b8%80%e9%a1%9eissue%e5%9f%b7%e8%a1%8c%e4%b8%ad%e6%b5%ae%e7%8f%be%e7%9a%84%e5%95%8f%e9%a1%8c" aria-label="三、第一類：Issue（執行中浮現的問題）">三、第一類：Issue（執行中浮現的問題）</a><ul>
+                    
+            <li>
+                <a href="#severity-%e5%88%86%e7%b4%9apjm-%e5%bf%85%e9%a0%88%e5%9c%a8-kickoff-%e5%89%8d%e5%ae%9a%e7%be%a9%e6%b8%85%e6%a5%9a" aria-label="Severity 分級（PJM 必須在 Kickoff 前定義清楚）">Severity 分級（PJM 必須在 Kickoff 前定義清楚）</a></li>
+            <li>
+                <a href="#%e7%b4%80%e5%be%8bp0--p1-%e6%95%b8%e9%87%8f%e6%98%af-pjm-%e7%9a%84%e5%81%a5%e5%ba%b7%e6%8c%87%e6%a8%99" aria-label="紀律：P0 / P1 數量是 PJM 的健康指標">紀律：P0 / P1 數量是 PJM 的健康指標</a></li>
+            <li>
+                <a href="#issue-%e5%b7%a5%e4%bd%9c%e6%b5%81" aria-label="Issue 工作流">Issue 工作流</a></li></ul>
+            </li>
+            <li>
+                <a href="#%e5%9b%9b%e7%ac%ac%e4%ba%8c%e9%a1%9ebug%e8%bb%9f%e9%9f%8c%e9%ab%94%e7%bc%ba%e9%99%b7" aria-label="四、第二類：Bug（軟韌體缺陷）">四、第二類：Bug（軟韌體缺陷）</a><ul>
+                    
+            <li>
+                <a href="#%e7%89%b9%e6%ae%8a%e8%99%95%e7%90%86wont-fix" aria-label="特殊處理：Won&rsquo;t Fix">特殊處理：Won&rsquo;t Fix</a></li></ul>
+            </li>
+            <li>
+                <a href="#%e4%ba%94%e7%ac%ac%e4%b8%89%e9%a1%9erisk%e8%ad%98%e5%88%a5%e5%88%b0%e4%bd%86%e5%b0%9a%e6%9c%aa%e7%99%bc%e7%94%9f%e7%9a%84%e9%a2%a8%e9%9a%aa" aria-label="五、第三類：Risk（識別到但尚未發生的風險）">五、第三類：Risk（識別到但尚未發生的風險）</a><ul>
+                    
+            <li>
+                <a href="#jira-%e8%a1%a8%e9%81%94%e6%8a%8a-risk-%e7%95%b6%e4%bd%9c%e7%8d%a8%e7%ab%8b-issue-type" aria-label="Jira 表達：把 Risk 當作獨立 Issue Type">Jira 表達：把 Risk 當作獨立 Issue Type</a></li>
+            <li>
+                <a href="#risk-log-%e7%b6%ad%e8%ad%b7%e7%b4%80%e5%be%8b" aria-label="Risk Log 維護紀律">Risk Log 維護紀律</a></li>
+            <li>
+                <a href="#array-26-%e7%9a%84%e5%88%9d%e5%a7%8b-risk-log" aria-label="ARRAY-26 的初始 Risk Log">ARRAY-26 的初始 Risk Log</a></li></ul>
+            </li>
+            <li>
+                <a href="#%e5%85%ad%e7%ac%ac%e5%9b%9b%e9%a1%9echange-request%e7%af%84%e5%9c%8d%e8%ae%8a%e6%9b%b4%e8%ab%8b%e6%b1%82" aria-label="六、第四類：Change Request（範圍變更請求）">六、第四類：Change Request（範圍變更請求）</a><ul>
+                    
+            <li>
+                <a href="#jira-%e8%a1%a8%e9%81%94" aria-label="Jira 表達">Jira 表達</a></li>
+            <li>
+                <a href="#cr-%e5%b7%a5%e4%bd%9c%e6%b5%81" aria-label="CR 工作流">CR 工作流</a></li>
+            <li>
+                <a href="#%e6%b1%ba%e7%ad%96%e6%ac%8a%e9%99%90%e9%9a%8e%e6%a2%afkickoff-%e5%89%8d%e5%bf%85%e9%a0%88%e8%88%87-vp-%e5%b0%8d%e9%bd%8a" aria-label="決策權限階梯（Kickoff 前必須與 VP 對齊）">決策權限階梯（Kickoff 前必須與 VP 對齊）</a></li>
+            <li>
+                <a href="#cr-%e5%b0%8d-baseline-%e7%9a%84%e8%99%95%e7%90%86" aria-label="CR 對 baseline 的處理">CR 對 baseline 的處理</a></li></ul>
+            </li>
+            <li>
+                <a href="#%e4%b8%83%e7%ac%ac%e4%ba%94%e9%a1%9edependency-slip%e4%be%9d%e8%b3%b4%e9%8f%88%e5%bb%b6%e9%81%b2" aria-label="七、第五類：Dependency Slip（依賴鏈延遲）">七、第五類：Dependency Slip（依賴鏈延遲）</a><ul>
+                    
+            <li>
+                <a href="#%e5%81%b5%e6%b8%ac" aria-label="偵測">偵測</a></li>
+            <li>
+                <a href="#%e8%99%95%e7%90%86" aria-label="處理">處理</a></li>
+            <li>
+                <a href="#%e9%a0%90%e9%98%b2%e4%be%9d%e8%b3%b4%e6%97%a5%e6%9b%86" aria-label="預防：依賴日曆">預防：依賴日曆</a></li></ul>
+            </li>
+            <li>
+                <a href="#%e5%85%ab%e5%9b%9b%e5%b1%a4%e6%b2%bb%e7%90%86%e7%af%80%e5%a5%8f" aria-label="八、四層治理節奏">八、四層治理節奏</a><ul>
+                    
+            <li>
+                <a href="#%e6%af%8f%e6%97%a5daily%e9%9d%9e%e5%90%8c%e6%ad%a5-slack-standup" aria-label="每日（Daily）：非同步 Slack standup">每日（Daily）：非同步 Slack standup</a></li>
+            <li>
+                <a href="#%e6%af%8f%e9%80%b1weeklypjm-sync--3045-%e5%88%86%e9%90%98--%e8%81%b7%e8%83%bd-lead--pjm" aria-label="每週（Weekly）：PJM Sync · 30–45 分鐘 · 職能 Lead &#43; PJM">每週（Weekly）：PJM Sync · 30–45 分鐘 · 職能 Lead + PJM</a></li>
+            <li>
+                <a href="#%e9%9b%99%e9%80%b1bi-weeklysprint-retro--demo--60-%e5%88%86%e9%90%98--%e5%85%a8%e5%9c%98%e9%9a%8a" aria-label="雙週（Bi-weekly）：Sprint Retro &#43; Demo · 60 分鐘 · 全團隊">雙週（Bi-weekly）：Sprint Retro + Demo · 60 分鐘 · 全團隊</a></li>
+            <li>
+                <a href="#%e6%af%8f%e6%9c%88monthlyvp-review--45-%e5%88%86%e9%90%98--pjm--vp" aria-label="每月（Monthly）：VP Review · 45 分鐘 · PJM &#43; VP">每月（Monthly）：VP Review · 45 分鐘 · PJM + VP</a></li>
+            <li>
+                <a href="#phase-gate%e4%b8%8d%e5%ae%9a%e6%9c%9fdesign-review--120-%e5%88%86%e9%90%98--%e5%85%a8-stakeholder--vp" aria-label="Phase Gate（不定期）：Design Review · 120 分鐘 · 全 stakeholder &#43; VP">Phase Gate（不定期）：Design Review · 120 分鐘 · 全 stakeholder + VP</a></li></ul>
+            </li>
+            <li>
+                <a href="#%e4%b9%9dinitiative-%e5%81%a5%e5%ba%b7%e5%ba%a6%e6%a8%99%e6%ba%96%e7%b5%a6-vp-%e7%9c%8b%e7%9a%84%e5%88%a4%e6%96%b7%e5%b7%a5%e5%85%b7" aria-label="九、Initiative 健康度標準（給 VP 看的判斷工具）">九、Initiative 健康度標準（給 VP 看的判斷工具）</a></li>
+            <li>
+                <a href="#%e5%8d%81%e6%94%b6%e6%96%82%e5%ae%8c%e6%95%b4%e7%9a%84-pjm-%e5%b7%a5%e5%85%b7%e7%ae%b1" aria-label="十、收斂：完整的 PJM 工具箱">十、收斂：完整的 PJM 工具箱</a></li>
+            <li>
+                <a href="#%e4%b8%89%e5%a4%a9%e7%b3%bb%e5%88%97%e7%b8%bd%e7%b5%90" aria-label="三天系列總結">三天系列總結</a>
+            </li>
+        </ul>
+    </div>
+</details>
+
+  <div class="post-content md-content"><blockquote>
+<p>系列：《TMYTEK 的硬體專案執行心法：從 Kickoff 到量產的工程治理》
+適讀：PJM / EPM / MPM 團隊，以及與我們協作的 BD / SCM / R&amp;D 同仁</p>
+</blockquote>
+<p>Day 1 建立共同語言、Day 2 完成 Kickoff 起手式。今天進入專案執行階段。</p>
+<hr>
+<h2 id="一起手式-vs-執行中的本質差異">一、起手式 vs. 執行中的本質差異<a hidden class="anchor" aria-hidden="true" href="#一起手式-vs-執行中的本質差異">#</a></h2>
+<p>Kickoff 前做的是<strong>確定性規劃</strong>——已知的工作、已知的依賴、已知的時程。Kickoff 後進入<strong>不確定性管理</strong>——未知的 bug、未預期的 issue、客戶變更、外部依賴失準、技術風險浮現。</p>
+<p>兩者用的工具完全不同。Kickoff 前需要的是<strong>結構</strong>（Initiative / Epic / Story 的層級），Kickoff 後需要的是<strong>流程</strong>（事情發生時誰決定什麼、什麼時候升級、什麼時候動 baseline）。</p>
+<p>我們看過的最大專案失敗模式，從來不是「規劃做得不好」，而是「規劃做得很好，但執行中沒有應變治理，新狀況一個一個累積，三個月後 baseline 已經跟現實脫節，PJM 還在維護一個假的計畫表」。<strong>起手式做扎實只是 30 分，執行治理才是另外 70 分。</strong></p>
+<p>執行中要處理的事情可以分成五大類：</p>
+<ol>
+<li><strong>Issue</strong>（執行中浮現的問題）</li>
+<li><strong>Bug</strong>（軟韌體缺陷）</li>
+<li><strong>Risk</strong>（識別到但尚未發生的風險）</li>
+<li><strong>Change Request</strong>（範圍變更請求）</li>
+<li><strong>Dependency Slip</strong>（依賴鏈延遲）</li>
+</ol>
+<p>但先講一個貫穿所有類別的核心紀律：</p>
+<hr>
+<h2 id="二核心紀律不要污染原始-story">二、核心紀律：不要污染原始 Story<a hidden class="anchor" aria-hidden="true" href="#二核心紀律不要污染原始-story">#</a></h2>
+<p>新手 PJM 最常犯的錯誤是：執行中發現問題，就直接修改原本的 Story 描述、加 Task、改估算。<strong>這會污染歷史資料、破壞 Predictability 計算、讓回顧分析失真。</strong></p>
+<p>正確做法是：<strong>原始 Story 凍結，新狀況用新 issue 表達，並用 link 關聯</strong>。</p>
+<p>例如 EE-EVT 的 ARR-303（電源 rail 紋波量測）發現紋波超出規範，正確處理是新建一張 Bug <code>ARR-3501</code>，描述「ARR-303 量測發現電源 rail 1 紋波超出規範 12mV」，並用 <code>is caused by</code> 連結到 ARR-303。<strong>原始 Story 該標完成就標完成（量測這件事有做），缺陷另外追蹤</strong>。</p>
+<p>這個紀律會穿透下面所有五類的處理流程。</p>
+<hr>
+<h2 id="三第一類issue執行中浮現的問題">三、第一類：Issue（執行中浮現的問題）<a hidden class="anchor" aria-hidden="true" href="#三第一類issue執行中浮現的問題">#</a></h2>
+<p><strong>定義：</strong> 執行某個 Story 過程中發現的非預期狀況。可能是設計缺陷、量測異常、規格不清、跨職能介面理解不一致。</p>
+<p><strong>Jira 表達：</strong> 不用 Bug type（Bug 是專指軟韌體缺陷）。Issue 用 Task issue type 加上自定義欄位區分。建議建立一個叫 <code>Execution Issue</code> 的子類型。</p>
+<p><strong>必填欄位：</strong></p>
+<table>
+  <thead>
+      <tr>
+          <th>欄位</th>
+          <th>說明</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>Issue Type</td>
+          <td>Task（標記為 Execution Issue）</td>
+      </tr>
+      <tr>
+          <td>Severity</td>
+          <td>P0 / P1 / P2 / P3（4 級嚴重度）</td>
+      </tr>
+      <tr>
+          <td>Linked to</td>
+          <td>關聯到原始 Story（用 &ldquo;is caused by&rdquo; 或 &ldquo;blocks&rdquo;）</td>
+      </tr>
+      <tr>
+          <td>Owner</td>
+          <td>主責解 issue 的人</td>
+      </tr>
+      <tr>
+          <td>Reporter</td>
+          <td>發現的人</td>
+      </tr>
+      <tr>
+          <td>Discovery Phase</td>
+          <td>Concept / Design / EVT / DVT / PVT</td>
+      </tr>
+      <tr>
+          <td>Target Resolution</td>
+          <td>目標解決日期</td>
+      </tr>
+  </tbody>
+</table>
+<h3 id="severity-分級pjm-必須在-kickoff-前定義清楚">Severity 分級（PJM 必須在 Kickoff 前定義清楚）<a hidden class="anchor" aria-hidden="true" href="#severity-分級pjm-必須在-kickoff-前定義清楚">#</a></h3>
+<p><strong>P0 — 阻斷性：</strong> 不解這個 issue，下個 Phase Gate 鐵定過不了。例如 EVT 發現天線增益實測比規範差 5dB——這是 P0，因為 DR2 Exit Criteria 直接卡住。<strong>P0 issue 24 小時內必須有 owner 和初步 mitigation plan。</strong></p>
+<p><strong>P1 — 嚴重影響：</strong> 不解會大幅增加風險，但有解法繞過。例如電源紋波超規範但已有候選對策（換電容、改 layout）。<strong>P1 issue 一週內必須有 mitigation plan。</strong></p>
+<p><strong>P2 — 可控影響：</strong> 影響有限，可以排入下個 sprint 處理。</p>
+<p><strong>P3 — Nice to have：</strong> 應該修但不影響交付。</p>
+<h3 id="紀律p0--p1-數量是-pjm-的健康指標">紀律：P0 / P1 數量是 PJM 的健康指標<a hidden class="anchor" aria-hidden="true" href="#紀律p0--p1-數量是-pjm-的健康指標">#</a></h3>
+<p><strong>P0 / P1 的數量是 PJM 的健康指標，不是工程師的指責對象。</strong> 如果某週新增 5 個 P0，是專案系統性出問題，不是哪個工程師沒做好。PJM 要做的是分析 root cause（為什麼這麼多 P0 沒在 Concept / Design 階段就抓到？），而不是檢討發現 issue 的人。</p>
+<p><strong>獎勵發現 issue 的人，懲罰隱瞞 issue 的人</strong>——這是 TMYTEK 專案文化最重要的設定。</p>
+<h3 id="issue-工作流">Issue 工作流<a hidden class="anchor" aria-hidden="true" href="#issue-工作流">#</a></h3>
+<p><strong>Open</strong> → <strong>Triaged</strong>（PJM + 主責職能 Lead 評過，確認 severity 與 owner）→ <strong>In Progress</strong> → <strong>In Review</strong> → <strong>Resolved</strong> → <strong>Closed</strong></p>
+<p><strong>紀律：</strong> Issue 的 status 變更要由 owner 主動操作，不要由 PJM 代勞。這個動作是 owner 對團隊的「信號發送」——「我接手了」、「我做完了」。</p>
+<hr>
+<h2 id="四第二類bug軟韌體缺陷">四、第二類：Bug（軟韌體缺陷）<a hidden class="anchor" aria-hidden="true" href="#四第二類bug軟韌體缺陷">#</a></h2>
+<p><strong>定義：</strong> 韌體、FPGA、GUI 的功能性缺陷。<strong>硬體類缺陷（電路、機構、天線）歸 Issue，不歸 Bug</strong>——這是業界慣例，因為 Bug 工作流是針對軟韌體生命週期設計的。</p>
+<p>Bug 跟 Issue 處理流程相似，但有兩個關鍵差異：</p>
+<p><strong>差異一：Bug 必須附「重現步驟」與「環境」。</strong></p>
+<p>每個 Bug 在 Open 狀態時，必填欄位包含：Reproduce Steps、Environment（哪個 build、哪個硬體版本、哪個 GUI 版本）、Expected Behavior、Actual Behavior。<strong>沒有這四個欄位的 Bug 一律打回</strong>——不是 PJM 的紀律，是 QA 的責任。<strong>讓 QA 來把這道關</strong>，PJM 別介入細節。</p>
+<p><strong>差異二：Bug 要綁 build version。</strong></p>
+<p>用 Jira 的 Affects Version / Fix Version 欄位。Affects Version = 哪個 build 發現的、Fix Version = 哪個 build 計畫修。這個資訊讓 release notes 自動可以生成「這個 build 修了哪些 Bug」。</p>
+<h3 id="特殊處理wont-fix">特殊處理：Won&rsquo;t Fix<a hidden class="anchor" aria-hidden="true" href="#特殊處理wont-fix">#</a></h3>
+<p>PJM 必須有勇氣對某些 Bug 說「這次不修」。例如 PVT 階段發現一個 P3 GUI 文字錯誤，修它要重做韌體 release flow 再花一週。<strong>這時應該 Won&rsquo;t Fix，並把 Bug 移到下一個 release。</strong></p>
+<p>但 Won&rsquo;t Fix 必須<strong>有書面理由</strong>並通知客戶（如果是客戶看得到的東西）。在 Jira 上要有 Resolution = &ldquo;Won&rsquo;t Fix&rdquo; + Comment 說明原因 + 在 Risk Log 記錄這個決定。<strong>未來客戶問「為什麼這個沒修？」我們才有東西可以回。</strong></p>
+<hr>
+<h2 id="五第三類risk識別到但尚未發生的風險">五、第三類：Risk（識別到但尚未發生的風險）<a hidden class="anchor" aria-hidden="true" href="#五第三類risk識別到但尚未發生的風險">#</a></h2>
+<p>這是大部分 PJM 處理得最差的一類，但其實是最有價值的一類。</p>
+<p><strong>核心觀念：</strong> Issue 是「已發生的問題」，Risk 是「可能發生的問題」。Issue 反應現在，Risk 預測未來。<strong>好的 PJM 80% 的時間在處理 Risk，20% 在處理 Issue；差的 PJM 反過來。</strong></p>
+<h3 id="jira-表達把-risk-當作獨立-issue-type">Jira 表達：把 Risk 當作獨立 Issue Type<a hidden class="anchor" aria-hidden="true" href="#jira-表達把-risk-當作獨立-issue-type">#</a></h3>
+<p>我們把 Risk 當作 Story-level 的特殊 issue type，而不是 Task。原因是 Risk 有自己的生命週期（識別 → 評估 → 緩解 → 監控 → 關閉）。</p>
+<p><strong>必填欄位：</strong></p>
+<table>
+  <thead>
+      <tr>
+          <th>欄位</th>
+          <th>說明</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>Risk Type</td>
+          <td>Technical / Schedule / Resource / External / Customer</td>
+      </tr>
+      <tr>
+          <td>Probability</td>
+          <td>High / Medium / Low</td>
+      </tr>
+      <tr>
+          <td>Impact</td>
+          <td>High / Medium / Low</td>
+      </tr>
+      <tr>
+          <td>Risk Score</td>
+          <td>Probability × Impact 自動計算</td>
+      </tr>
+      <tr>
+          <td>Mitigation Plan</td>
+          <td>怎麼降低發生機率</td>
+      </tr>
+      <tr>
+          <td>Contingency Plan</td>
+          <td>萬一發生了怎麼辦</td>
+      </tr>
+      <tr>
+          <td>Trigger</td>
+          <td>什麼狀況代表這個 Risk 已經要發生了</td>
+      </tr>
+      <tr>
+          <td>Owner</td>
+          <td>主責監控與緩解的人</td>
+      </tr>
+      <tr>
+          <td>Phase</td>
+          <td>這個 Risk 主要影響哪個階段</td>
+      </tr>
+  </tbody>
+</table>
+<h3 id="risk-log-維護紀律">Risk Log 維護紀律<a hidden class="anchor" aria-hidden="true" href="#risk-log-維護紀律">#</a></h3>
+<p><strong>每週的 PJM 站立會，第一個議程永遠是 Risk Log 巡檢。</strong> 不是 Issue、不是進度，是 Risk。</p>
+<p>理由：Issue 自己會吵，Risk 不吵但會在最壞的時刻爆炸。</p>
+<p>每週要做的事：新識別的 Risk 加入、已緩解的 Risk 關閉、Trigger 已觸發的 Risk 升級為 Issue（注意：這時要新建一個 Issue 並 link 到原 Risk，不要直接改 Risk 的 type）。</p>
+<h3 id="array-26-的初始-risk-log">ARRAY-26 的初始 Risk Log<a hidden class="anchor" aria-hidden="true" href="#array-26-的初始-risk-log">#</a></h3>
+<p>PJM 在 Kickoff 時應該已經識別的 Risk（基於專案類型可預測，不是事後諸葛）：</p>
+<table>
+  <thead>
+      <tr>
+          <th>Risk</th>
+          <th>Type</th>
+          <th>P</th>
+          <th>I</th>
+          <th>Mitigation</th>
+          <th>Contingency</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>客戶 POD 規範解讀分歧</td>
+          <td>Customer</td>
+          <td>M</td>
+          <td>H</td>
+          <td>DR0 前與客戶開規範 walkthrough、簽 understanding 文件</td>
+          <td>升級到客戶決策層</td>
+      </tr>
+      <tr>
+          <td>天線陣列實測達不到客戶增益規範</td>
+          <td>Technical</td>
+          <td>M</td>
+          <td>H</td>
+          <td>Concept 階段做 link budget 預留 3dB 餘裕</td>
+          <td>啟用 plan B 拓撲、申請客戶規範鬆綁</td>
+      </tr>
+      <tr>
+          <td>FPGA 與 RF 整合 timing 失準</td>
+          <td>Technical</td>
+          <td>M</td>
+          <td>M</td>
+          <td>EVT 早期就跑跨職能 bring-up</td>
+          <td>增加 EE + FPGA 整合 sprint</td>
+      </tr>
+      <tr>
+          <td>ODM 打樣排程延遲</td>
+          <td>External</td>
+          <td>H</td>
+          <td>M</td>
+          <td>Design 階段就鎖兩家 PCB 廠</td>
+          <td>啟用備援廠商</td>
+      </tr>
+      <tr>
+          <td>客戶端口對接窗口變動</td>
+          <td>Customer</td>
+          <td>M</td>
+          <td>M</td>
+          <td>雙窗口（主 + 副）並建立月度同步會</td>
+          <td>升級到 PJM 對 PJM</td>
+      </tr>
+      <tr>
+          <td>韌體與 GUI 介面定義改動</td>
+          <td>Technical</td>
+          <td>H</td>
+          <td>M</td>
+          <td>Design 階段定義 API contract 並 freeze</td>
+          <td>開 sprint 衝刺對接</td>
+      </tr>
+      <tr>
+          <td>環境測試一次未過要重做</td>
+          <td>External</td>
+          <td>M</td>
+          <td>H</td>
+          <td>EVT 階段先做粗測、不要拖到 DVT 才一次</td>
+          <td>預留 2 週環境測試 buffer</td>
+      </tr>
+      <tr>
+          <td>量產治具開發落後</td>
+          <td>Schedule</td>
+          <td>M</td>
+          <td>H</td>
+          <td>NPI Epic 在 DVT 階段就啟動而非 PVT</td>
+          <td>用試產治具替代正式治具交付</td>
+      </tr>
+      <tr>
+          <td><strong>關鍵料件交期信心度低</strong></td>
+          <td>External</td>
+          <td>M</td>
+          <td>H</td>
+          <td>SCM 已追蹤兩家備援代理商</td>
+          <td>啟用替代料（EE Lead 已預先驗證）</td>
+      </tr>
+  </tbody>
+</table>
+<p>8–10 個初始 Risk 是合理的數量。少於 5 個代表 PJM 沒認真想，多於 15 個代表 Risk 與 Issue 沒分清楚。</p>
+<hr>
+<h2 id="六第四類change-request範圍變更請求">六、第四類：Change Request（範圍變更請求）<a hidden class="anchor" aria-hidden="true" href="#六第四類change-request範圍變更請求">#</a></h2>
+<p>這是專案治理裡最容易失控的一類。</p>
+<p><strong>核心紀律：所有範圍變更必須走正式流程，不接受口頭 / Email / Slack 直接生效。</strong></p>
+<h3 id="jira-表達">Jira 表達<a hidden class="anchor" aria-hidden="true" href="#jira-表達">#</a></h3>
+<p>CR 是跟 Initiative 同層級的 Issue Type（不掛在 Epic 下）。原因：CR 可能影響多個 Epic、多個職能。</p>
+<p><strong>必填欄位：</strong></p>
+<table>
+  <thead>
+      <tr>
+          <th>欄位</th>
+          <th>說明</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>Source</td>
+          <td>Customer / Internal / External Regulation</td>
+      </tr>
+      <tr>
+          <td>Requestor</td>
+          <td>提出變更的人</td>
+      </tr>
+      <tr>
+          <td>Description</td>
+          <td>要改什麼</td>
+      </tr>
+      <tr>
+          <td>Reason</td>
+          <td>為什麼要改</td>
+      </tr>
+      <tr>
+          <td>Affected Epics</td>
+          <td>受影響的 Epic（多選）</td>
+      </tr>
+      <tr>
+          <td>Schedule Impact</td>
+          <td>預估影響時程多久</td>
+      </tr>
+      <tr>
+          <td>Resource Impact</td>
+          <td>預估增加多少人月</td>
+      </tr>
+      <tr>
+          <td>Cost Impact</td>
+          <td>預估增加多少成本</td>
+      </tr>
+      <tr>
+          <td>Recommendation</td>
+          <td>PJM 的建議：Approve / Reject / Defer</td>
+      </tr>
+      <tr>
+          <td>Decision</td>
+          <td>最終決議 + 簽核者</td>
+      </tr>
+  </tbody>
+</table>
+<h3 id="cr-工作流">CR 工作流<a hidden class="anchor" aria-hidden="true" href="#cr-工作流">#</a></h3>
+<p><strong>Submitted</strong> → <strong>Under Analysis</strong>（PJM + 相關 Lead 評估，1 週內完成）→ <strong>Decision Pending</strong> → <strong>Approved / Rejected / Deferred</strong> → <strong>Implemented</strong> → <strong>Closed</strong></p>
+<h3 id="決策權限階梯kickoff-前必須與-vp-對齊">決策權限階梯（Kickoff 前必須與 VP 對齊）<a hidden class="anchor" aria-hidden="true" href="#決策權限階梯kickoff-前必須與-vp-對齊">#</a></h3>
+<table>
+  <thead>
+      <tr>
+          <th>簽核層級</th>
+          <th>適用</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><strong>PJM 可決定</strong></td>
+          <td>Schedule Impact ≤ 1 週、Resource Impact ≤ 5 人日、Cost ≤ 5 萬台幣，且不影響客戶可見規格</td>
+      </tr>
+      <tr>
+          <td><strong>VP 產品需簽核</strong></td>
+          <td>Schedule Impact 1–4 週、Resource Impact 5–20 人日、不改變客戶交付承諾的內部變更</td>
+      </tr>
+      <tr>
+          <td><strong>客戶 + VP 雙方簽核</strong></td>
+          <td>Schedule Impact &gt; 4 週、影響客戶可見規格、影響交付日</td>
+      </tr>
+  </tbody>
+</table>
+<p><strong>這個階梯必須在 Kickoff 時對全團隊宣告。</strong> 因為現實中 80% 的 CR 是工程師覺得「順便改一下沒關係」的小事，沒走流程直接做了，三個月後累積成 baseline 偏離。階梯講清楚，工程師才知道什麼算「順便」、什麼必須走流程。</p>
+<h3 id="cr-對-baseline-的處理">CR 對 baseline 的處理<a hidden class="anchor" aria-hidden="true" href="#cr-對-baseline-的處理">#</a></h3>
+<p>CR 通過後，<strong>不要直接改原始 Epic / Story 的估算和時程</strong>。正確做法：</p>
+<ol>
+<li>原始 Story 的 baseline（規劃時的估算與時程）凍結保留，當作歷史記錄</li>
+<li>CR 通過後，建立新的 Story（如果是新增功能）或新的 sub-task（如果是修改現有功能），清楚標記為「來自 CR-XXX」</li>
+<li>更新 Epic 的「Latest Estimate」欄位，反映 CR 後的最新預估</li>
+</ol>
+<p>這樣做的好處：年底回顧時，可以清楚看到「原本規劃 100 人月，CR 加了 15 人月，實際做了 110 人月」——CR 的影響被顯性化。</p>
+<hr>
+<h2 id="七第五類dependency-slip依賴鏈延遲">七、第五類：Dependency Slip（依賴鏈延遲）<a hidden class="anchor" aria-hidden="true" href="#七第五類dependency-slip依賴鏈延遲">#</a></h2>
+<p><strong>定義：</strong> 外部依賴（供應商、ODM、實驗室、客戶）或跨職能依賴沒在預定時間到位。</p>
+<p>這一類在純軟體公司不太重要，<strong>硬體專案最常爆的就是這類</strong>。</p>
+<h3 id="偵測">偵測<a hidden class="anchor" aria-hidden="true" href="#偵測">#</a></h3>
+<p>不用建新的 issue type。<strong>Dependency Slip 的訊號是 Story 在 External Wait 狀態超過原始預估時間 50%</strong>。例如某個 Story 規劃 External Wait 5 天（等打樣回來），第 8 天還沒回——觸發 Dependency Slip。</p>
+<p>可以用 Jira automation 自動偵測：當 status = External Wait 且超過某天數，自動 escalate 給 PJM。</p>
+<h3 id="處理">處理<a hidden class="anchor" aria-hidden="true" href="#處理">#</a></h3>
+<p>PJM 收到 escalation 後 <strong>24 小時內</strong>要做三件事：</p>
+<p>第一，<strong>確認真實狀態</strong>。打給供應商 / 實驗室 / 客戶聯絡窗口，問清楚到底什麼時候會到。<strong>不要用郵件問，用電話</strong>——電話會逼對方給出明確答案，郵件會收到「我們儘快處理」這種無用的回覆。</p>
+<p>第二，<strong>評估對下游 Epic 的影響</strong>。如果延 3 天，可能下游吸收得了；如果延 2 週，必須觸發 baseline 調整。</p>
+<p>第三，<strong>決定是否升級為 Risk 或 Issue</strong>。如果延遲已成定局，建立一個 Issue；如果還有可能補救，更新原本的 Risk Log。</p>
+<h3 id="預防依賴日曆">預防：依賴日曆<a hidden class="anchor" aria-hidden="true" href="#預防依賴日曆">#</a></h3>
+<p>PJM 應該在 Kickoff 前建立 <strong>Dependency Calendar</strong>，把所有外部依賴的時間點列出來：第一輪 PCB 打樣回來日、第二輪打樣回來日、機殼模具打樣日、認證實驗室排期、客戶樣品評估會議、ODM 試產日、海運交期……每一項都標出 owner 和 trigger date。</p>
+<p>每週 PJM 站立會要過一遍——<strong>比起追工程師進度，追外部依賴是 PJM 真正創造價值的地方</strong>。工程師會自動推進工作，外部依賴不會自動推進它自己。</p>
+<p><strong>這也是 Day 2 講過的 PJM ↔ SCM 月度 Material Sync 的延伸</strong>——SCM 是 PJM 在物料依賴上最重要的合作夥伴，依賴日曆上凡涉及料件的項目，都應該與 SCM 共同維護。</p>
+<hr>
+<h2 id="八四層治理節奏">八、四層治理節奏<a hidden class="anchor" aria-hidden="true" href="#八四層治理節奏">#</a></h2>
+<p>工具講完了，最後講節奏——這些工具要透過什麼樣的會議與檢視時點來發揮作用。</p>
+<p>我們採用<strong>四層循環</strong>：</p>
+<h3 id="每日daily非同步-slack-standup">每日（Daily）：非同步 Slack standup<a hidden class="anchor" aria-hidden="true" href="#每日daily非同步-slack-standup">#</a></h3>
+<p>不開站立會。45 人 + 矩陣式組織，硬要每天開站立會會崩潰。改用 <strong>Slack 非同步 standup</strong>——每個職能在自己的 channel 早上 10 點前 post 三件事：今天做什麼、有沒有 blocker、有沒有需要 PJM 知道的事。</p>
+<p>PJM 每天上午看這些，發現異常才打電話介入。</p>
+<h3 id="每週weeklypjm-sync--3045-分鐘--職能-lead--pjm">每週（Weekly）：PJM Sync · 30–45 分鐘 · 職能 Lead + PJM<a hidden class="anchor" aria-hidden="true" href="#每週weeklypjm-sync--3045-分鐘--職能-lead--pjm">#</a></h3>
+<p>議程固定四項：</p>
+<ol>
+<li><strong>Risk Log 巡檢</strong>（10 分鐘）：新識別 / 已關閉 / Trigger 接近的 Risk</li>
+<li><strong>P0 / P1 Issue 與 Bug 進度</strong>（10 分鐘）</li>
+<li><strong>下週的依賴日曆</strong>（5 分鐘）：含 SCM 料況週報重點摘要</li>
+<li><strong>下週的職能負載</strong>（5 分鐘）</li>
+</ol>
+<p><strong>這 30 分鐘是整個專案最關鍵的會議</strong>，因為這時做的調整成本最低。</p>
+<h3 id="雙週bi-weeklysprint-retro--demo--60-分鐘--全團隊">雙週（Bi-weekly）：Sprint Retro + Demo · 60 分鐘 · 全團隊<a hidden class="anchor" aria-hidden="true" href="#雙週bi-weeklysprint-retro--demo--60-分鐘--全團隊">#</a></h3>
+<p>工程紀律的會議——demo 已完成的 Story、Retro 上個 Sprint 的流動指標、討論工程流程改善。注意這個會議不討論 schedule 或 risk，那是 PJM Sync 的事。</p>
+<h3 id="每月monthlyvp-review--45-分鐘--pjm--vp">每月（Monthly）：VP Review · 45 分鐘 · PJM + VP<a hidden class="anchor" aria-hidden="true" href="#每月monthlyvp-review--45-分鐘--pjm--vp">#</a></h3>
+<p>給 VP 看的——當月儀表板狀態、需要 VP 簽核的 CR、未來一個月的 Risk forecast。</p>
+<h3 id="phase-gate不定期design-review--120-分鐘--全-stakeholder--vp">Phase Gate（不定期）：Design Review · 120 分鐘 · 全 stakeholder + VP<a hidden class="anchor" aria-hidden="true" href="#phase-gate不定期design-review--120-分鐘--全-stakeholder--vp">#</a></h3>
+<p>Phase Gate 不是「會議」，是「決策」——有結構化的 Exit Criteria 對照、明確的 Pass / Conditional Pass / Fail / Reject 結果。</p>
+<hr>
+<h2 id="九initiative-健康度標準給-vp-看的判斷工具">九、Initiative 健康度標準（給 VP 看的判斷工具）<a hidden class="anchor" aria-hidden="true" href="#九initiative-健康度標準給-vp-看的判斷工具">#</a></h2>
+<p>什麼時候 VP 該介入一個專案，什麼時候放手讓 PJM 做？我們用三個指標：</p>
+<table>
+  <thead>
+      <tr>
+          <th>指標</th>
+          <th>健康</th>
+          <th>警戒</th>
+          <th>紅燈</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>未解決 P0 / P1 數量</td>
+          <td>≤ 3</td>
+          <td>4–6</td>
+          <td>≥ 7</td>
+      </tr>
+      <tr>
+          <td>Risk Score 加權合計趨勢</td>
+          <td>平穩或下降</td>
+          <td>連 2 週上升</td>
+          <td>連 4 週上升</td>
+      </tr>
+      <tr>
+          <td>Predictability（承諾 vs 完成）</td>
+          <td>80–110%</td>
+          <td>60–80%</td>
+          <td>&lt; 60% 連 2 期</td>
+      </tr>
+  </tbody>
+</table>
+<p>如果某專案連續兩週進入紅燈區，<strong>VP 應該介入</strong>——這不是責備 PJM，是支援 PJM 解開組織層級的瓶頸。</p>
+<hr>
+<h2 id="十收斂完整的-pjm-工具箱">十、收斂：完整的 PJM 工具箱<a hidden class="anchor" aria-hidden="true" href="#十收斂完整的-pjm-工具箱">#</a></h2>
+<p>到這裡，從 Kickoff 前的 Jira 框架，到 Kickoff 後的執行治理，PJM 在硬體專案上需要的工具都齊了。</p>
+<p><strong>Kickoff 前準備：</strong> Initiative + Epic 結構、Phase Gate Exit Criteria、初始 Risk Log、Dependency Calendar、決策權限階梯、SCM MRL 與 ETA 確認。</p>
+<p><strong>Kickoff 後維護：</strong> Issue / Bug 的 Triage、Risk Log 的週度巡檢、CR 的正式流程、依賴鏈的主動追蹤、四層治理節奏。</p>
+<p><strong>VP 真正要看的：</strong> 月度的儀表板、Risk Score 加權合計、未解決 P0/P1 數量、Predictability 趨勢。</p>
+<hr>
+<h2 id="三天系列總結">三天系列總結<a hidden class="anchor" aria-hidden="true" href="#三天系列總結">#</a></h2>
+<p>這個系列的目的不是講「Jira 怎麼用」——任何 PJM 都可以查 Atlassian 文件學會 Jira 操作。<strong>這個系列要建立的是 TMYTEK 內部的工程治理共同語言</strong>：</p>
+<ul>
+<li><strong>Day 1</strong> 建立資源語言（Investment Category + 層級結構）</li>
+<li><strong>Day 2</strong> 示範 Kickoff 前的起手式（用 ARRAY-26 為例 + PJM ↔ SCM 採購流程）</li>
+<li><strong>Day 3</strong> 講 Kickoff 後的執行治理（五大類事件 + 四層節奏）</li>
+</ul>
+<p>這套方法不是 TMYTEK 獨創——它是 FAANG 工程治理 + 硬體 NPI 流程 + 矩陣式組織管理的綜合，並針對我們公司的實況（45 人、軟硬整合、ODM/EMS 量產、Jira Plans）做了細部調整。</p>
+<p>PJM 的核心價值不是「催進度」，是<strong>讓正確的決策在正確的時間被做出來</strong>。把結構建好、把流程跑好，催進度的需求自然會減少 80%。</p>
+<hr>
+<p><strong>接下來：</strong> 這套方法已開始在 ARRAY-26 與其他進行中的專案套用。如果你的專案也準備啟動，請聯絡 PJM 團隊取得 Jira Project Template 與初始 Risk Log 範本，避免從零開始。</p>
+<p>如果你（特別是 BD / SCM / R&amp;D 的同仁）對這套方法的某個面向有疑問，或者想把這套方法如何套用在你協作的專案上，歡迎在這篇文章下留言或直接找 PJM 團隊討論。</p>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+    </ul>
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+        <span>&copy; 2026 <a href="http://localhost:1313/">Ethan&#39;s Blog</a></span> · 
+
+    
+    
+    <span>
+        Powered by
+        <a href="https://gohugo.io/?utm_source=papermod" rel="noopener" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" id="top-link" class="top-link hidden" aria-label="go to top" title="Go to Top (Alt + G)" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+        stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevrons-up">
+        <polyline points="17 11 12 6 7 11"></polyline>
+        <polyline points="17 18 12 13 7 18"></polyline>
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu');
+    if (menu) {
+        
+        const scrollPosition = localStorage.getItem("menu-scroll-position");
+        if (scrollPosition) {
+            menu.scrollLeft = parseInt(scrollPosition, 10);
+        }
+        
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var toplink = document.getElementById("top-link");
+    window.onscroll = function () {
+        const scrollThreshold = window.innerHeight;
+        if (document.body.scrollTop > scrollThreshold || document.documentElement.scrollTop > scrollThreshold) {
+            toplink.classList.remove("hidden");
+        } else {
+            toplink.classList.add("hidden");
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        const html = document.querySelector("html");
+        if (html.dataset.theme === "dark") {
+            html.dataset.theme = 'light';
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            html.dataset.theme = 'dark';
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+</body>
+
+</html>
